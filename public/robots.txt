@@ -1,0 +1,24 @@
+# Robots.txt for InstaViewer
+# https://instaviewer.de
+
+User-agent: *
+Allow: /
+
+# Allow all pages
+Allow: /blog
+Allow: /kontakt
+Allow: /datenschutz
+Allow: /agb
+Allow: /impressum
+
+# Disallow admin and private areas
+Disallow: /admin
+Disallow: /api
+Disallow: /_next
+Disallow: /private
+
+# Sitemap location
+Sitemap: https://instaviewer.de/sitemap.xml
+
+# Crawl delay (optional, for polite crawling)
+Crawl-delay: 1
