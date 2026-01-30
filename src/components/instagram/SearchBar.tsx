@@ -74,7 +74,7 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSearch, isLoading = false }) =>
           
           {/* Input Container */}
           <div className="relative flex items-center bg-white dark:bg-gray-900 rounded-2xl">
-            <div className="pl-5 pr-2">
+            <div className="pl-4 pr-2 sm:pl-5">
               <Search className="w-5 h-5 text-gray-400" />
             </div>
             
@@ -87,8 +87,8 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSearch, isLoading = false }) =>
                 setError('');
               }}
               onFocus={() => setShowDropdown(true)}
-              placeholder="Instagram Benutzername eingeben..."
-              className="flex-1 py-4 px-2 bg-transparent text-gray-900 dark:text-white placeholder-gray-400 focus:outline-none text-lg"
+              placeholder="Benutzername eingeben..."
+              className="flex-1 min-w-0 py-3 px-2 sm:py-4 bg-transparent text-gray-900 dark:text-white placeholder-gray-400 placeholder:text-sm sm:placeholder:text-base focus:outline-none text-base sm:text-lg"
               disabled={isLoading}
               autoComplete="off"
               spellCheck="false"
@@ -107,7 +107,7 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSearch, isLoading = false }) =>
             <button
               type="submit"
               disabled={isLoading || !username.trim()}
-              className="m-2 px-6 py-2.5 bg-gradient-to-r from-purple-600 via-pink-500 to-orange-400 text-white font-semibold rounded-xl hover:shadow-lg hover:shadow-pink-500/25 disabled:opacity-50 disabled:cursor-not-allowed transition-all flex items-center gap-2"
+              className="m-1 sm:m-2 px-3 sm:px-6 py-2 sm:py-2.5 bg-gradient-to-r from-purple-600 via-pink-500 to-orange-400 text-white font-semibold rounded-xl hover:shadow-lg hover:shadow-pink-500/25 disabled:opacity-50 disabled:cursor-not-allowed transition-all flex items-center gap-2"
             >
               {isLoading ? (
                 <>

@@ -48,7 +48,74 @@ export async function fetchProfile(username: string): Promise<Profile> {
       const errorData = await res.json();
       throw new Error(errorData.message || `Profil konnte nicht geladen werden: ${res.status}`);
     }
-    return await res.json();
+    const data = await res.json();
+    const source = data?.profile ?? data;
+    const pickString = (...values: unknown[]) =>
+      values.find((value) => typeof value === 'string' && value.trim().length > 0) as string | undefined;
+    const pickNumber = (...values: unknown[]) =>
+      values.find((value) => typeof value === 'number' && !Number.isNaN(value)) as number | undefined;
+    const pickBoolean = (...values: unknown[]) =>
+      values.find((value) => typeof value === 'boolean') as boolean | undefined;
+
+    const normalizedProfile: Profile = {
+      username: pickString(source?.username, data?.username) || username,
+      fullName: pickString(source?.fullName, source?.full_name, data?.fullName, data?.full_name) || '',
+      biography: pickString(source?.biography, data?.biography) || '',
+      profilePicUrl:
+        pickString(
+          source?.profilePicUrl,
+          source?.profile_pic_url,
+          source?.profile_pic_url_hd,
+          data?.profilePicUrl,
+          data?.profile_pic_url,
+          data?.profile_pic_url_hd,
+        ) || '',
+      postsCount:
+        pickNumber(
+          source?.postsCount,
+          source?.posts_count,
+          source?.media_count,
+          source?.posts,
+          data?.postsCount,
+          data?.posts_count,
+          data?.media_count,
+          data?.posts,
+        ) || 0,
+      followersCount:
+        pickNumber(
+          source?.followersCount,
+          source?.followers_count,
+          source?.followers,
+          source?.edge_followed_by?.count,
+          data?.followersCount,
+          data?.followers_count,
+          data?.followers,
+          data?.edge_followed_by?.count,
+        ) || 0,
+      followingCount:
+        pickNumber(
+          source?.followingCount,
+          source?.following_count,
+          source?.following,
+          source?.edge_follow?.count,
+          data?.followingCount,
+          data?.following_count,
+          data?.following,
+          data?.edge_follow?.count,
+        ) || 0,
+      isPrivate:
+        pickBoolean(source?.isPrivate, source?.is_private, data?.isPrivate, data?.is_private) || false,
+      isVerified:
+        pickBoolean(source?.isVerified, source?.is_verified, data?.isVerified, data?.is_verified) || false,
+      externalUrl: pickString(
+        source?.externalUrl,
+        source?.external_url,
+        data?.externalUrl,
+        data?.external_url,
+      ),
+    };
+
+    return normalizedProfile;
   } catch (error) {
     console.error("API Error in fetchProfile:", error);
     throw error;

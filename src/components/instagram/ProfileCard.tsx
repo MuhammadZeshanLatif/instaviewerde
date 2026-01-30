@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { BadgeCheck, Lock, ExternalLink, Users, UserPlus, Grid3X3 } from 'lucide-react';
 import { Profile, formatNumber, getProxiedUrl } from '@/lib/instagram-api';
 
@@ -7,9 +7,15 @@ interface ProfileCardProps {
 }
 
 const ProfileCard: React.FC<ProfileCardProps> = ({ profile }) => {
-  const profileImageUrl = profile.profilePicUrl 
-    ? getProxiedUrl(profile.profilePicUrl) || profile.profilePicUrl
-    : '';
+  const directProfileImageUrl = profile.profilePicUrl || '';
+  const proxiedProfileImageUrl = directProfileImageUrl ? getProxiedUrl(directProfileImageUrl) : '';
+  const [imageSrc, setImageSrc] = useState(proxiedProfileImageUrl || directProfileImageUrl);
+  const [imageError, setImageError] = useState(false);
+
+  useEffect(() => {
+    setImageError(false);
+    setImageSrc(proxiedProfileImageUrl || directProfileImageUrl);
+  }, [directProfileImageUrl, proxiedProfileImageUrl]);
 
   return (
     <div className="w-full max-w-3xl mx-auto">
@@ -22,16 +28,23 @@ const ProfileCard: React.FC<ProfileCardProps> = ({ profile }) => {
           <div className="flex flex-col sm:flex-row items-center sm:items-end gap-4 -mt-12">
             <div className="relative">
               <div className="w-24 h-24 rounded-full ring-4 ring-white dark:ring-gray-800 overflow-hidden bg-gray-200 dark:bg-gray-700">
-                {profileImageUrl ? (
+                {imageSrc && !imageError ? (
                   <img
-                    src={profileImageUrl}
+                    src={imageSrc}
                     alt={profile.username}
                     className="w-full h-full object-cover"
                     crossOrigin="anonymous"
                     referrerPolicy="no-referrer"
+                    loading="lazy"
+                    decoding="async"
                     onError={(e) => {
+                      if (imageSrc === proxiedProfileImageUrl && directProfileImageUrl) {
+                        setImageSrc(directProfileImageUrl);
+                        return;
+                      }
                       const target = e.target as HTMLImageElement;
                       target.style.display = 'none';
+                      setImageError(true);
                     }}
                   />
                 ) : (
@@ -49,7 +62,7 @@ const ProfileCard: React.FC<ProfileCardProps> = ({ profile }) => {
             
             <div className="flex-1 text-center sm:text-left sm:pb-2">
               <div className="flex items-center justify-center sm:justify-start gap-2">
-                <h2 className="text-xl font-bold text-gray-900 dark:text-white">
+                <h2 className="text-xl sm:text-2xl font-extrabold tracking-tight text-black">
                   @{profile.username}
                 </h2>
                 {profile.isVerified && (
@@ -63,33 +76,33 @@ const ProfileCard: React.FC<ProfileCardProps> = ({ profile }) => {
           </div>
 
           {/* Stats */}
-          <div className="grid grid-cols-3 gap-4 mt-6">
-            <div className="text-center p-4 bg-gray-50 dark:bg-gray-700/50 rounded-xl">
+          <div className="grid grid-cols-3 gap-1.5 sm:gap-4 mt-6">
+            <div className="text-center p-2.5 sm:p-4 bg-gray-50 dark:bg-gray-700/50 rounded-xl">
               <div className="flex items-center justify-center gap-1.5 mb-1">
                 <Grid3X3 className="w-4 h-4 text-purple-500" />
               </div>
-              <p className="text-2xl font-bold text-gray-900 dark:text-white">
+              <p className="text-lg sm:text-2xl font-bold text-gray-900 dark:text-white">
                 {formatNumber(profile.postsCount)}
               </p>
-              <p className="text-xs text-gray-500 dark:text-gray-400">Beiträge</p>
+              <p className="text-[10px] sm:text-xs text-gray-500 dark:text-gray-400">Beiträge</p>
             </div>
-            <div className="text-center p-4 bg-gray-50 dark:bg-gray-700/50 rounded-xl">
+            <div className="text-center p-2.5 sm:p-4 bg-gray-50 dark:bg-gray-700/50 rounded-xl">
               <div className="flex items-center justify-center gap-1.5 mb-1">
                 <Users className="w-4 h-4 text-pink-500" />
               </div>
-              <p className="text-2xl font-bold text-gray-900 dark:text-white">
+              <p className="text-lg sm:text-2xl font-bold text-gray-900 dark:text-white">
                 {formatNumber(profile.followersCount)}
               </p>
-              <p className="text-xs text-gray-500 dark:text-gray-400">Follower</p>
+              <p className="text-[10px] sm:text-xs text-gray-500 dark:text-gray-400">Follower</p>
             </div>
-            <div className="text-center p-4 bg-gray-50 dark:bg-gray-700/50 rounded-xl">
+            <div className="text-center p-2.5 sm:p-4 bg-gray-50 dark:bg-gray-700/50 rounded-xl">
               <div className="flex items-center justify-center gap-1.5 mb-1">
                 <UserPlus className="w-4 h-4 text-orange-500" />
               </div>
-              <p className="text-2xl font-bold text-gray-900 dark:text-white">
+              <p className="text-lg sm:text-2xl font-bold text-gray-900 dark:text-white">
                 {formatNumber(profile.followingCount)}
               </p>
-              <p className="text-xs text-gray-500 dark:text-gray-400">Folgt</p>
+              <p className="text-[10px] sm:text-xs text-gray-500 dark:text-gray-400">Folgt</p>
             </div>
           </div>
 
