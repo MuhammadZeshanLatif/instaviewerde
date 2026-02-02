@@ -1,5 +1,6 @@
 import React from 'react';
 import { Search, Eye, Download, ArrowRight } from 'lucide-react';
+import './HowItWorks.css';
 
 const HowItWorks: React.FC = () => {
   const steps = [
@@ -27,48 +28,53 @@ const HowItWorks: React.FC = () => {
   ];
 
   return (
-    <section className="py-16 bg-gray-50 dark:bg-gray-900/50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section className="how-it-works">
+      <div className="container-xl px-3 px-sm-4">
         {/* Section Header */}
-        <div className="text-center mb-12">
-          <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white mb-4">
+        <div className="text-center mb-5">
+          <h2 className="how-it-works__title">
             So funktioniert es
           </h2>
-          <p className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
+          <p className="how-it-works__subtitle">
             In nur drei einfachen Schritten können Sie Instagram-Inhalte anonym ansehen und herunterladen.
           </p>
         </div>
 
         {/* Steps */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="row g-4">
           {steps.map((step, index) => {
             const Icon = step.icon;
+            const stepClass = step.gradient.includes('purple')
+              ? 'how-it-works__step--purple'
+              : step.gradient.includes('pink')
+                ? 'how-it-works__step--pink'
+                : 'how-it-works__step--orange';
             return (
-              <div key={index} className="relative">
+              <div key={index} className="col-12 col-md-4 position-relative">
                 {/* Connector Line */}
                 {index < steps.length - 1 && (
-                  <div className="hidden md:block absolute top-16 left-full w-full h-0.5 bg-gradient-to-r from-gray-300 dark:from-gray-700 to-transparent -translate-x-1/2 z-0">
-                    <ArrowRight className="absolute right-0 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-300 dark:text-gray-700" />
+                  <div className="how-it-works__connector d-none d-md-block">
+                    <ArrowRight className="how-it-works__connector-icon" />
                   </div>
                 )}
                 
                 {/* Card */}
-                <div className="relative bg-white dark:bg-gray-800 rounded-2xl p-8 shadow-lg border border-gray-100 dark:border-gray-700 text-center z-10">
+                <div className={`how-it-works__card ${stepClass}`}>
                   {/* Step Number */}
-                  <div className={`absolute -top-4 left-1/2 -translate-x-1/2 px-4 py-1 bg-gradient-to-r ${step.gradient} text-white text-sm font-bold rounded-full`}>
+                  <div className="how-it-works__number">
                     {step.number}
                   </div>
                   
                   {/* Icon */}
-                  <div className={`w-16 h-16 mx-auto rounded-2xl bg-gradient-to-br ${step.gradient} flex items-center justify-center mb-6 mt-4`}>
-                    <Icon className="w-8 h-8 text-white" />
+                  <div className="how-it-works__icon">
+                    <Icon className="how-it-works__icon-svg" />
                   </div>
                   
                   {/* Content */}
-                  <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-3">
+                  <h3 className="how-it-works__step-title">
                     {step.title}
                   </h3>
-                  <p className="text-gray-600 dark:text-gray-400">
+                  <p className="how-it-works__step-text">
                     {step.description}
                   </p>
                 </div>

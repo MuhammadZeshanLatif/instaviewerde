@@ -1,0 +1,85 @@
+.content-tabs {
+  width: 100%;
+  max-width: 720px;
+}
+
+.content-tabs__bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 6px;
+  border-radius: 12px;
+  background: #f3f4f6;
+}
+
+.content-tabs__button {
+  flex: 1;
+  border: 0;
+  background: transparent;
+  border-radius: 10px;
+  padding: 10px 16px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #6b7280;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: background 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.content-tabs__button:hover {
+  color: #111827;
+}
+
+.content-tabs__button.is-active {
+  background: #ffffff;
+  color: #7c3aed;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.06);
+}
+
+.content-tabs__icon {
+  width: 16px;
+  height: 16px;
+}
+
+.content-tabs__badge {
+  font-size: 0.75rem;
+  padding: 2px 6px;
+  border-radius: 9999px;
+  background: #e5e7eb;
+  color: #6b7280;
+}
+
+.content-tabs__badge.is-active {
+  background: #ede9fe;
+  color: #7c3aed;
+}
+
+.dark .content-tabs__bar {
+  background: #1f2937;
+}
+
+.dark .content-tabs__button {
+  color: #9ca3af;
+}
+
+.dark .content-tabs__button:hover {
+  color: #e5e7eb;
+}
+
+.dark .content-tabs__button.is-active {
+  background: #374151;
+  color: #c4b5fd;
+}
+
+.dark .content-tabs__badge {
+  background: #374151;
+  color: #9ca3af;
+}
+
+.dark .content-tabs__badge.is-active {
+  background: rgba(124, 58, 237, 0.35);
+  color: #c4b5fd;
+}

@@ -4,6 +4,7 @@ import Header from '@/components/instagram/Header';
 import Footer from '@/components/instagram/Footer';
 import SEOHead from '@/components/instagram/SEOHead';
 import { toast } from 'sonner';
+import './Contact.css';
 
 const Contact: React.FC = () => {
   const [formData, setFormData] = useState({
@@ -72,21 +73,21 @@ const Contact: React.FC = () => {
 
   if (submitted) {
     return (
-      <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
+      <div className="page">
         <SEOHead
           title="Kontakt - InstaViewer"
           description="Kontaktieren Sie uns bei Fragen oder Anregungen zu InstaViewer. Wir helfen Ihnen gerne weiter."
         />
         <Header />
 
-        <div className="max-w-2xl mx-auto px-4 py-24 text-center">
-          <div className="w-20 h-20 mx-auto mb-6 rounded-full bg-green-100 dark:bg-green-900/30 flex items-center justify-center">
-            <CheckCircle className="w-10 h-10 text-green-500" />
+        <div className="container-md px-3 px-sm-4 py-5 text-center contact-success">
+          <div className="contact-success__icon">
+            <CheckCircle className="contact-success__icon-svg" />
           </div>
-          <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">
+          <h1 className="contact-success__title">
             Vielen Dank für Ihre Nachricht!
           </h1>
-          <p className="text-gray-600 dark:text-gray-400 mb-8">
+          <p className="contact-success__text">
             Wir haben Ihre Anfrage erhalten und werden uns so schnell wie möglich bei Ihnen melden.
             In der Regel antworten wir innerhalb von 24 Stunden.
           </p>
@@ -95,7 +96,7 @@ const Contact: React.FC = () => {
               setSubmitted(false);
               setFormData({ name: '', email: '', subject: '', message: '' });
             }}
-            className="px-6 py-3 bg-gradient-to-r from-purple-600 to-pink-500 text-white font-semibold rounded-xl hover:shadow-lg transition-all"
+            className="contact-success__button"
           >
             Neue Nachricht senden
           </button>
@@ -107,7 +108,7 @@ const Contact: React.FC = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
+    <div className="page">
       <SEOHead
         title="Kontakt - InstaViewer"
         description="Kontaktieren Sie uns bei Fragen oder Anregungen zu InstaViewer. Wir helfen Ihnen gerne weiter."
@@ -116,13 +117,13 @@ const Contact: React.FC = () => {
       <Header />
 
       {/* Hero Section */}
-      <section className="relative bg-gradient-to-br from-purple-600 via-pink-500 to-orange-400 py-16 sm:py-20">
-        <div className="absolute inset-0 bg-black/10" />
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h1 className="text-4xl sm:text-5xl font-bold text-white mb-4">
+      <section className="contact-hero">
+        <div className="contact-hero__overlay" />
+        <div className="container-xl px-3 px-sm-4 text-center contact-hero__content">
+          <h1 className="contact-hero__title">
             Kontaktieren Sie uns
           </h1>
-          <p className="text-lg text-white/90 max-w-2xl mx-auto">
+          <p className="contact-hero__subtitle">
             Haben Sie Fragen, Feedback oder benötigen Sie Hilfe? 
             Wir sind für Sie da und freuen uns auf Ihre Nachricht.
           </p>
@@ -130,28 +131,21 @@ const Contact: React.FC = () => {
       </section>
 
       {/* Contact Info Cards */}
-      <section className="py-12 -mt-8">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <section className="contact-info">
+        <div className="container-xl px-3 px-sm-4">
+          <div className="row g-4">
             {contactInfo.map((info, index) => {
               const Icon = info.icon;
               return (
-                <div
-                  key={index}
-                  className="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg border border-gray-100 dark:border-gray-700 text-center"
-                >
-                  <div className="w-14 h-14 mx-auto mb-4 rounded-xl bg-gradient-to-br from-purple-600/10 via-pink-500/10 to-orange-400/10 flex items-center justify-center">
-                    <Icon className="w-7 h-7 text-purple-600 dark:text-purple-400" />
+                <div key={index} className="col-12 col-md-4">
+                  <div className="contact-info__card">
+                    <div className="contact-info__icon">
+                      <Icon className="contact-info__icon-svg" />
+                    </div>
+                    <h3 className="contact-info__title">{info.title}</h3>
+                    <p className="contact-info__value">{info.value}</p>
+                    <p className="contact-info__text">{info.description}</p>
                   </div>
-                  <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-1">
-                    {info.title}
-                  </h3>
-                  <p className="text-purple-600 dark:text-purple-400 font-medium mb-1">
-                    {info.value}
-                  </p>
-                  <p className="text-sm text-gray-500 dark:text-gray-400">
-                    {info.description}
-                  </p>
                 </div>
               );
             })}
@@ -160,28 +154,28 @@ const Contact: React.FC = () => {
       </section>
 
       {/* Contact Form */}
-      <section className="py-12">
-        <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl border border-gray-100 dark:border-gray-700 p-8">
-            <div className="flex items-center gap-3 mb-6">
-              <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-purple-600 to-pink-500 flex items-center justify-center">
-                <MessageSquare className="w-6 h-6 text-white" />
+      <section className="contact-form">
+        <div className="container-lg px-3 px-sm-4">
+          <div className="contact-form__card">
+            <div className="d-flex align-items-center gap-3 mb-4">
+              <div className="contact-form__icon">
+                <MessageSquare className="contact-form__icon-svg" />
               </div>
               <div>
-                <h2 className="text-xl font-bold text-gray-900 dark:text-white">
+                <h2 className="contact-form__title">
                   Nachricht senden
                 </h2>
-                <p className="text-sm text-gray-500 dark:text-gray-400">
+                <p className="contact-form__subtitle">
                   Füllen Sie das Formular aus und wir melden uns bei Ihnen
                 </p>
               </div>
             </div>
 
-            <form onSubmit={handleSubmit} className="space-y-6">
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            <form onSubmit={handleSubmit} className="contact-form__fields">
+              <div className="row g-4">
                 {/* Name */}
-                <div>
-                  <label htmlFor="name" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                <div className="col-12 col-sm-6">
+                  <label htmlFor="name" className="contact-form__label">
                     Name *
                   </label>
                   <input
@@ -191,14 +185,14 @@ const Contact: React.FC = () => {
                     value={formData.name}
                     onChange={handleChange}
                     required
-                    className="w-full px-4 py-3 bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-xl text-gray-900 dark:text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500"
+                    className="contact-form__input form-control"
                     placeholder="Ihr Name"
                   />
                 </div>
 
                 {/* Email */}
-                <div>
-                  <label htmlFor="email" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                <div className="col-12 col-sm-6">
+                  <label htmlFor="email" className="contact-form__label">
                     E-Mail *
                   </label>
                   <input
@@ -208,7 +202,7 @@ const Contact: React.FC = () => {
                     value={formData.email}
                     onChange={handleChange}
                     required
-                    className="w-full px-4 py-3 bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-xl text-gray-900 dark:text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500"
+                    className="contact-form__input form-control"
                     placeholder="ihre@email.de"
                   />
                 </div>
@@ -216,7 +210,7 @@ const Contact: React.FC = () => {
 
               {/* Subject */}
               <div>
-                <label htmlFor="subject" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                <label htmlFor="subject" className="contact-form__label">
                   Betreff
                 </label>
                 <select
@@ -224,7 +218,7 @@ const Contact: React.FC = () => {
                   name="subject"
                   value={formData.subject}
                   onChange={handleChange}
-                  className="w-full px-4 py-3 bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-xl text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-purple-500"
+                  className="contact-form__input form-select"
                 >
                   <option value="">Bitte wählen...</option>
                   {subjects.map((subject, index) => (
@@ -235,7 +229,7 @@ const Contact: React.FC = () => {
 
               {/* Message */}
               <div>
-                <label htmlFor="message" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                <label htmlFor="message" className="contact-form__label">
                   Nachricht *
                 </label>
                 <textarea
@@ -245,7 +239,7 @@ const Contact: React.FC = () => {
                   onChange={handleChange}
                   required
                   rows={6}
-                  className="w-full px-4 py-3 bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-xl text-gray-900 dark:text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 resize-none"
+                  className="contact-form__input form-control"
                   placeholder="Wie können wir Ihnen helfen?"
                 />
               </div>
@@ -254,16 +248,16 @@ const Contact: React.FC = () => {
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="w-full flex items-center justify-center gap-2 px-6 py-4 bg-gradient-to-r from-purple-600 via-pink-500 to-orange-400 text-white font-semibold rounded-xl hover:shadow-lg hover:shadow-pink-500/25 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
+                className="contact-form__submit"
               >
                 {isSubmitting ? (
                   <>
-                    <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                    <div className="contact-form__spinner" />
                     <span>Wird gesendet...</span>
                   </>
                 ) : (
                   <>
-                    <Send className="w-5 h-5" />
+                    <Send className="contact-form__submit-icon" />
                     <span>Nachricht senden</span>
                   </>
                 )}
@@ -274,20 +268,20 @@ const Contact: React.FC = () => {
       </section>
 
       {/* FAQ Hint */}
-      <section className="py-12 bg-gray-100 dark:bg-gray-800/50">
-        <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <div className="flex items-center justify-center gap-2 mb-4">
-            <AlertCircle className="w-5 h-5 text-purple-600 dark:text-purple-400" />
-            <span className="text-sm font-medium text-gray-600 dark:text-gray-400">
+      <section className="contact-faq">
+        <div className="container-md px-3 px-sm-4 text-center">
+          <div className="d-flex align-items-center justify-content-center gap-2 mb-3">
+            <AlertCircle className="contact-faq__icon" />
+            <span className="contact-faq__label">
               Schnelle Hilfe benötigt?
             </span>
           </div>
-          <p className="text-gray-600 dark:text-gray-400 mb-4">
+          <p className="contact-faq__text">
             Viele Fragen werden bereits in unseren FAQ beantwortet.
           </p>
           <a
             href="/#faq"
-            className="inline-flex items-center gap-2 text-purple-600 dark:text-purple-400 font-medium hover:text-pink-500 transition-colors"
+            className="contact-faq__link"
           >
             Zu den häufig gestellten Fragen
           </a>

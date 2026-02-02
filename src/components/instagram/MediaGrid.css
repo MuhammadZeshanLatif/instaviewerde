@@ -1,0 +1,241 @@
+.media-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.media-grid__skeleton {
+  aspect-ratio: 1 / 1;
+  background: #e5e7eb;
+  border-radius: 12px;
+  animation: media-grid-pulse 1.2s infinite ease-in-out;
+}
+
+.media-grid__empty {
+  padding: 48px 0;
+}
+
+.media-grid__empty-icon {
+  width: 64px;
+  height: 64px;
+  border-radius: 9999px;
+  background: #f3f4f6;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 16px;
+}
+
+.media-grid__empty-icon-svg {
+  width: 32px;
+  height: 32px;
+  color: #9ca3af;
+}
+
+.media-grid__empty-text {
+  color: #6b7280;
+  margin: 0;
+}
+
+.media-grid__item {
+  position: relative;
+  aspect-ratio: 1 / 1;
+  background: #f3f4f6;
+  border-radius: 12px;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.media-grid__loading {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #e5e7eb;
+  animation: media-grid-pulse 1.2s infinite ease-in-out;
+}
+
+.media-grid__loading-spinner {
+  width: 24px;
+  height: 24px;
+  color: #9ca3af;
+  animation: media-grid-spin 1s linear infinite;
+}
+
+.media-grid__image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transform: scale(1);
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.media-grid__image.is-visible {
+  opacity: 1;
+}
+
+.media-grid__item:hover .media-grid__image {
+  transform: scale(1.05);
+}
+
+.media-grid__error {
+  position: absolute;
+  inset: 0;
+  background: #e5e7eb;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.media-grid__error-icon {
+  width: 32px;
+  height: 32px;
+  color: #9ca3af;
+  margin-bottom: 8px;
+}
+
+.media-grid__error-text {
+  font-size: 0.75rem;
+  color: #6b7280;
+}
+
+.media-grid__video {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 32px;
+  height: 32px;
+  border-radius: 9999px;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.media-grid__video-icon {
+  width: 16px;
+  height: 16px;
+  color: #ffffff;
+  fill: #ffffff;
+}
+
+.media-grid__overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.2s ease, background 0.2s ease;
+}
+
+.media-grid__item:hover .media-grid__overlay {
+  opacity: 1;
+  background: rgba(0, 0, 0, 0.4);
+}
+
+.media-grid__overlay-content {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: #ffffff;
+}
+
+.media-grid__overlay-icon {
+  width: 20px;
+  height: 20px;
+}
+
+.media-grid__overlay-text {
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+.media-grid__download {
+  position: absolute;
+  bottom: 8px;
+  right: 8px;
+  width: 32px;
+  height: 32px;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.9);
+  border: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.2s ease, background 0.2s ease;
+}
+
+.media-grid__item:hover .media-grid__download {
+  opacity: 1;
+}
+
+.media-grid__download:hover {
+  background: #ffffff;
+}
+
+.media-grid__download-icon {
+  width: 16px;
+  height: 16px;
+  color: #374151;
+}
+
+@media (min-width: 576px) {
+  .media-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 16px;
+  }
+}
+
+@media (min-width: 992px) {
+  .media-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+.dark .media-grid__skeleton,
+.dark .media-grid__loading,
+.dark .media-grid__item {
+  background: #374151;
+}
+
+.dark .media-grid__empty-icon {
+  background: #1f2937;
+}
+
+.dark .media-grid__empty-text {
+  color: #9ca3af;
+}
+
+.dark .media-grid__download {
+  background: rgba(31, 41, 55, 0.9);
+}
+
+.dark .media-grid__download:hover {
+  background: #374151;
+}
+
+.dark .media-grid__download-icon {
+  color: #e5e7eb;
+}
+
+@keyframes media-grid-pulse {
+  0%,
+  100% {
+    opacity: 0.8;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+@keyframes media-grid-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}

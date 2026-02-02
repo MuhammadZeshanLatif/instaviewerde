@@ -1,5 +1,6 @@
 import React from 'react';
 import { LucideIcon } from 'lucide-react';
+import './FeatureCard.css';
 
 interface FeatureCardProps {
   icon: LucideIcon;
@@ -14,23 +15,31 @@ const FeatureCard: React.FC<FeatureCardProps> = ({
   description,
   gradient = 'from-purple-600 to-pink-500'
 }) => {
+  const gradientClass = gradient.includes('purple')
+    ? 'feature-card--purple'
+    : gradient.includes('pink')
+      ? 'feature-card--pink'
+      : gradient.includes('orange')
+        ? 'feature-card--orange'
+        : gradient.includes('green')
+          ? 'feature-card--green'
+          : gradient.includes('blue')
+            ? 'feature-card--blue'
+            : 'feature-card--purple';
+
   return (
-    <div className="group relative bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100 dark:border-gray-700 overflow-hidden">
+    <div className={`feature-card ${gradientClass}`}>
       {/* Background Gradient on Hover */}
-      <div className={`absolute inset-0 bg-gradient-to-br ${gradient} opacity-0 group-hover:opacity-5 transition-opacity duration-300`} />
+      <div className="feature-card__overlay" />
       
       {/* Icon */}
-      <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${gradient} flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300`}>
-        <Icon className="w-6 h-6 text-white" />
+      <div className="feature-card__icon">
+        <Icon className="feature-card__icon-svg" />
       </div>
       
       {/* Content */}
-      <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
-        {title}
-      </h3>
-      <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">
-        {description}
-      </p>
+      <h3 className="feature-card__title">{title}</h3>
+      <p className="feature-card__description">{description}</p>
     </div>
   );
 };

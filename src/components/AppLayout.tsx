@@ -13,6 +13,7 @@ import HowItWorks from './instagram/HowItWorks';
 import FAQ from './instagram/FAQ';
 import PopularProfiles from './instagram/PopularProfiles';
 import SEOHead from './instagram/SEOHead';
+import './AppLayout.css';
 import {
   Profile,
   Post,
@@ -179,37 +180,37 @@ const AppLayout: React.FC = () => {
   }, [handleSearch]);
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
+    <div className="app-layout">
       <SEOHead />
       <Header />
 
       {/* Hero Section */}
-      <section className="relative overflow-hidden">
+      <section className="hero-section">
         {/* Background Gradient */}
-        <div className="absolute inset-0 bg-gradient-to-br from-purple-600/5 via-pink-500/5 to-orange-400/5" />
-        <div className="absolute top-0 left-1/4 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl" />
-        <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-pink-500/10 rounded-full blur-3xl" />
+        <div className="hero-section__bg" />
+        <div className="hero-section__orb hero-section__orb--left" />
+        <div className="hero-section__orb hero-section__orb--right" />
 
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-24">
-          <div className="text-center">
+        <div className="container-xl px-3 px-sm-4">
+          <div className="hero-section__content text-center">
             {/* Badge */}
-            <div className="inline-flex items-center gap-2 px-4 py-2 bg-white dark:bg-gray-800 rounded-full shadow-md mb-8">
-              <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
-              <span className="text-sm font-medium text-gray-600 dark:text-gray-300">
+            <div className="hero-section__badge">
+              <div className="hero-section__badge-dot" />
+              <span className="hero-section__badge-text">
                 100% Kostenlos & Anonym
               </span>
             </div>
 
             {/* Headline */}
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-900 dark:text-white mb-6">
+            <h1 className="hero-section__title">
               Instagram Stories{' '}
-              <span className="bg-gradient-to-r from-purple-600 via-pink-500 to-orange-400 bg-clip-text text-transparent">
+              <span className="hero-section__title-highlight">
                 anonym ansehen
               </span>
             </h1>
 
             {/* Subheadline */}
-            <p className="text-lg sm:text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto mb-10">
+            <p className="hero-section__subtitle">
               Sehen Sie Instagram Stories, Beiträge und Reels an, ohne dass jemand es erfährt. 
               Laden Sie Medien herunter – kostenlos und ohne Anmeldung.
             </p>
@@ -218,17 +219,17 @@ const AppLayout: React.FC = () => {
             <SearchBar onSearch={handleSearch} isLoading={isLoading} />
 
             {/* Trust Indicators */}
-            <div className="flex flex-wrap items-center justify-center gap-6 mt-10 text-sm text-gray-500 dark:text-gray-400">
-              <div className="flex items-center gap-2">
-                <Lock className="w-4 h-4 text-green-500" />
+            <div className="hero-section__trust">
+              <div className="d-flex align-items-center gap-2">
+                <Lock className="hero-section__trust-icon hero-section__trust-icon--green" />
                 <span>SSL-verschlüsselt</span>
               </div>
-              <div className="flex items-center gap-2">
-                <Eye className="w-4 h-4 text-purple-500" />
+              <div className="d-flex align-items-center gap-2">
+                <Eye className="hero-section__trust-icon hero-section__trust-icon--purple" />
                 <span>Über 1M+ Nutzer</span>
               </div>
-              <div className="flex items-center gap-2">
-                <Heart className="w-4 h-4 text-pink-500" />
+              <div className="d-flex align-items-center gap-2">
+                <Heart className="hero-section__trust-icon hero-section__trust-icon--pink" />
                 <span>4.8/5 Bewertung</span>
               </div>
             </div>
@@ -238,14 +239,14 @@ const AppLayout: React.FC = () => {
 
       {/* Results Section */}
       {profile && (
-        <section ref={resultsRef} className="py-12 bg-white dark:bg-gray-800/50">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <section ref={resultsRef} className="results-section">
+          <div className="container-xl px-3 px-sm-4">
             {/* Profile Card */}
             <ProfileCard profile={profile} />
 
             {/* Content Tabs */}
             {!profile.isPrivate && (
-              <div className="mt-8 space-y-6">
+              <div className="results-section__tabs">
                 <ContentTabs
                   activeTab={activeTab}
                   onTabChange={handleTabChange}
@@ -256,7 +257,7 @@ const AppLayout: React.FC = () => {
                 />
 
                 {/* Media Grid */}
-                <div className="max-w-5xl mx-auto">
+                <div className="results-section__grid">
                   <MediaGrid
                     posts={contentCache[activeTab]}
                     onMediaClick={handleMediaClick}
@@ -273,26 +274,27 @@ const AppLayout: React.FC = () => {
       <PopularProfiles onProfileClick={handleProfileClick} />
 
       {/* Features Section */}
-      <section className="py-16 bg-white dark:bg-gray-800/50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white mb-4">
+      <section className="features-section">
+        <div className="container-xl px-3 px-sm-4">
+          <div className="text-center mb-5">
+            <h2 className="features-section__title">
               Warum InstaViewer?
             </h2>
-            <p className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
+            <p className="features-section__subtitle">
               Entdecken Sie die Vorteile unseres kostenlosen Instagram Story Viewers.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="row g-4">
             {features.map((feature, index) => (
-              <FeatureCard
-                key={index}
-                icon={feature.icon}
-                title={feature.title}
-                description={feature.description}
-                gradient={feature.gradient}
-              />
+              <div key={index} className="col-12 col-sm-6 col-lg-4">
+                <FeatureCard
+                  icon={feature.icon}
+                  title={feature.title}
+                  description={feature.description}
+                  gradient={feature.gradient}
+                />
+              </div>
             ))}
           </div>
         </div>
@@ -304,18 +306,53 @@ const AppLayout: React.FC = () => {
       {/* FAQ */}
       <FAQ />
 
+      {/* Trust Section */}
+      <section className="trust-section">
+        <div className="container-xl px-3 px-sm-4">
+          <div className="text-center mb-4">
+            <h2 className="trust-section__title">
+              Vertraut von Nutzern weltweit
+            </h2>
+            <p className="trust-section__subtitle">
+              Schnelle Ergebnisse, klare Privatsphäre und keine Anmeldung – jederzeit verfügbar.
+            </p>
+          </div>
+
+          <div className="row g-4">
+            <div className="col-12 col-md-4">
+              <div className="trust-section__card">
+                <p className="trust-section__value trust-section__value--purple">1M+</p>
+                <p className="trust-section__label">Monatliche Nutzer</p>
+              </div>
+            </div>
+            <div className="col-12 col-md-4">
+              <div className="trust-section__card">
+                <p className="trust-section__value trust-section__value--pink">4.8/5</p>
+                <p className="trust-section__label">Durchschnittliche Bewertung</p>
+              </div>
+            </div>
+            <div className="col-12 col-md-4">
+              <div className="trust-section__card">
+                <p className="trust-section__value trust-section__value--orange">100%</p>
+                <p className="trust-section__label">Anonym & kostenlos</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* CTA Section */}
-      <section className="py-16 bg-gradient-to-r from-purple-600 via-pink-500 to-orange-400">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">
+      <section className="cta-section">
+        <div className="container-lg px-3 px-sm-4 text-center">
+          <h2 className="cta-section__title">
             Bereit zum Starten?
           </h2>
-          <p className="text-lg text-white/90 mb-8">
+          <p className="cta-section__subtitle">
             Geben Sie einen Instagram-Benutzernamen ein und entdecken Sie Stories, Beiträge und mehr – völlig anonym.
           </p>
           <button
             onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-            className="px-8 py-4 bg-white text-purple-600 font-semibold rounded-xl hover:shadow-xl transition-all"
+            className="cta-section__button"
           >
             Jetzt kostenlos nutzen
           </button>

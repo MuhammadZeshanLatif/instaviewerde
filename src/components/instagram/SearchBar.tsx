@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Search, X, Clock, Trash2, Loader2 } from 'lucide-react';
 import { isValidUsername, getRecentSearches, clearRecentSearches } from '@/lib/instagram-api';
+import './SearchBar.css';
 
 interface SearchBarProps {
   onSearch: (username: string) => void;
@@ -66,16 +67,16 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSearch, isLoading = false }) =>
   };
 
   return (
-    <div className="w-full max-w-2xl mx-auto" ref={dropdownRef}>
-      <form onSubmit={handleSubmit} className="relative">
-        <div className="relative group">
+    <div className="search-bar mx-auto" ref={dropdownRef}>
+      <form onSubmit={handleSubmit} className="position-relative">
+        <div className="search-bar__wrapper position-relative">
           {/* Gradient Border Effect */}
-          <div className="absolute -inset-0.5 bg-gradient-to-r from-purple-600 via-pink-500 to-orange-400 rounded-2xl opacity-75 group-hover:opacity-100 blur transition-opacity" />
+          <div className="search-bar__border" />
           
           {/* Input Container */}
-          <div className="relative flex items-center bg-white dark:bg-gray-900 rounded-2xl">
-            <div className="pl-4 pr-2 sm:pl-5">
-              <Search className="w-5 h-5 text-gray-400" />
+          <div className="search-bar__container d-flex align-items-center">
+            <div className="search-bar__icon">
+              <Search className="search-bar__icon-svg" />
             </div>
             
             <input
@@ -88,7 +89,7 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSearch, isLoading = false }) =>
               }}
               onFocus={() => setShowDropdown(true)}
               placeholder="Benutzername eingeben..."
-              className="flex-1 min-w-0 py-3 px-2 sm:py-4 bg-transparent text-gray-900 dark:text-white placeholder-gray-400 placeholder:text-sm sm:placeholder:text-base focus:outline-none text-base sm:text-lg"
+              className="search-bar__input form-control"
               disabled={isLoading}
               autoComplete="off"
               spellCheck="false"
@@ -98,26 +99,26 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSearch, isLoading = false }) =>
               <button
                 type="button"
                 onClick={handleClear}
-                className="p-2 text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 transition-colors"
+                className="search-bar__clear-btn btn btn-link"
               >
-                <X className="w-5 h-5" />
+                <X className="search-bar__clear-icon" />
               </button>
             )}
             
             <button
               type="submit"
               disabled={isLoading || !username.trim()}
-              className="m-1 sm:m-2 px-3 sm:px-6 py-2 sm:py-2.5 bg-gradient-to-r from-purple-600 via-pink-500 to-orange-400 text-white font-semibold rounded-xl hover:shadow-lg hover:shadow-pink-500/25 disabled:opacity-50 disabled:cursor-not-allowed transition-all flex items-center gap-2"
+              className="search-bar__submit btn"
             >
               {isLoading ? (
                 <>
-                  <Loader2 className="w-4 h-4 animate-spin" />
-                  <span className="hidden sm:inline">Suchen...</span>
+                  <Loader2 className="search-bar__loader" />
+                  <span className="d-none d-sm-inline">Suchen...</span>
                 </>
               ) : (
                 <>
-                  <Search className="w-4 h-4" />
-                  <span className="hidden sm:inline">Suchen</span>
+                  <Search className="search-bar__submit-icon" />
+                  <span className="d-none d-sm-inline">Suchen</span>
                 </>
               )}
             </button>
@@ -126,23 +127,23 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSearch, isLoading = false }) =>
 
         {/* Error Message */}
         {error && (
-          <p className="mt-2 text-sm text-red-500 text-center">{error}</p>
+          <p className="search-bar__error text-center">{error}</p>
         )}
       </form>
 
       {/* Recent Searches Dropdown */}
       {showDropdown && recentSearches.length > 0 && !isLoading && (
-        <div className="absolute z-50 w-full max-w-2xl mt-2 bg-white dark:bg-gray-800 rounded-xl shadow-xl border border-gray-200 dark:border-gray-700 overflow-hidden">
-          <div className="flex items-center justify-between px-4 py-3 border-b border-gray-200 dark:border-gray-700">
-            <div className="flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400">
-              <Clock className="w-4 h-4" />
+        <div className="search-bar__dropdown">
+          <div className="search-bar__dropdown-header d-flex align-items-center justify-content-between">
+            <div className="d-flex align-items-center gap-2">
+              <Clock className="search-bar__dropdown-icon" />
               <span>Letzte Suchen</span>
             </div>
             <button
               onClick={handleClearRecent}
-              className="flex items-center gap-1 text-xs text-gray-400 hover:text-red-500 transition-colors"
+              className="search-bar__clear-recent btn btn-link"
             >
-              <Trash2 className="w-3 h-3" />
+              <Trash2 className="search-bar__clear-recent-icon" />
               <span>Löschen</span>
             </button>
           </div>
@@ -151,14 +152,14 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSearch, isLoading = false }) =>
               <li key={index}>
                 <button
                   onClick={() => handleRecentSearch(search)}
-                  className="w-full px-4 py-3 text-left text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors flex items-center gap-3"
+                  className="search-bar__dropdown-item"
                 >
-                  <div className="w-8 h-8 rounded-full bg-gradient-to-br from-purple-600/20 via-pink-500/20 to-orange-400/20 flex items-center justify-center">
-                    <span className="text-sm font-medium text-purple-600 dark:text-purple-400">
+                  <div className="search-bar__avatar">
+                    <span className="search-bar__avatar-text">
                       {search.charAt(0).toUpperCase()}
                     </span>
                   </div>
-                  <span className="font-medium">@{search}</span>
+                  <span className="search-bar__username">@{search}</span>
                 </button>
               </li>
             ))}

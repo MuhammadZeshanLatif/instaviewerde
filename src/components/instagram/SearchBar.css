@@ -1,0 +1,245 @@
+.search-bar {
+  width: 100%;
+  max-width: 720px;
+  position: relative;
+}
+
+.search-bar__wrapper {
+  position: relative;
+}
+
+.search-bar__border {
+  position: absolute;
+  inset: -2px;
+  border-radius: 16px;
+  background: linear-gradient(90deg, #7c3aed 0%, #ec4899 50%, #fb923c 100%);
+  opacity: 0.75;
+  filter: blur(6px);
+  transition: opacity 0.2s ease;
+}
+
+.search-bar__wrapper:hover .search-bar__border {
+  opacity: 1;
+}
+
+.search-bar__container {
+  position: relative;
+  background: #ffffff;
+  border-radius: 16px;
+  z-index: 1;
+}
+
+.search-bar__icon {
+  padding-left: 16px;
+  padding-right: 8px;
+}
+
+.search-bar__icon-svg {
+  width: 20px;
+  height: 20px;
+  color: #9ca3af;
+}
+
+.search-bar__input {
+  border: 0;
+  box-shadow: none;
+  background: transparent;
+  padding: 12px 8px;
+  font-size: 1rem;
+  color: #111827;
+}
+
+.search-bar__input::placeholder {
+  color: #9ca3af;
+  font-size: 0.875rem;
+}
+
+.search-bar__input:focus {
+  box-shadow: none;
+}
+
+.search-bar__clear-btn {
+  color: #9ca3af;
+  text-decoration: none;
+  padding: 8px;
+}
+
+.search-bar__clear-btn:hover {
+  color: #6b7280;
+}
+
+.search-bar__clear-icon {
+  width: 20px;
+  height: 20px;
+}
+
+.search-bar__submit {
+  margin: 4px;
+  padding: 8px 12px;
+  border-radius: 12px;
+  color: #ffffff;
+  font-weight: 600;
+  background: linear-gradient(90deg, #7c3aed 0%, #ec4899 50%, #fb923c 100%);
+  border: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.search-bar__submit:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.search-bar__submit:hover:not(:disabled) {
+  box-shadow: 0 8px 20px rgba(236, 72, 153, 0.25);
+}
+
+.search-bar__submit-icon,
+.search-bar__loader {
+  width: 16px;
+  height: 16px;
+}
+
+.search-bar__loader {
+  animation: search-bar-spin 1s linear infinite;
+}
+
+.search-bar__error {
+  margin-top: 8px;
+  font-size: 0.875rem;
+  color: #ef4444;
+}
+
+.search-bar__dropdown {
+  position: absolute;
+  z-index: 50;
+  width: 100%;
+  margin-top: 8px;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+  border: 1px solid #e5e7eb;
+  overflow: hidden;
+}
+
+.search-bar__dropdown-header {
+  padding: 12px 16px;
+  border-bottom: 1px solid #e5e7eb;
+  color: #6b7280;
+  font-size: 0.875rem;
+}
+
+.search-bar__dropdown-icon {
+  width: 16px;
+  height: 16px;
+}
+
+.search-bar__clear-recent {
+  font-size: 0.75rem;
+  color: #9ca3af;
+  text-decoration: none;
+  padding: 0;
+}
+
+.search-bar__clear-recent:hover {
+  color: #ef4444;
+}
+
+.search-bar__clear-recent-icon {
+  width: 12px;
+  height: 12px;
+}
+
+.search-bar__dropdown-item {
+  width: 100%;
+  padding: 12px 16px;
+  text-align: left;
+  border: 0;
+  background: transparent;
+  color: #374151;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  transition: background 0.2s ease;
+}
+
+.search-bar__dropdown-item:hover {
+  background: #f9fafb;
+}
+
+.search-bar__avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 9999px;
+  background: linear-gradient(135deg, rgba(124, 58, 237, 0.2) 0%, rgba(236, 72, 153, 0.2) 50%, rgba(251, 146, 60, 0.2) 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.search-bar__avatar-text {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #7c3aed;
+}
+
+.search-bar__username {
+  font-weight: 600;
+}
+
+@media (min-width: 576px) {
+  .search-bar__input {
+    padding: 14px 8px;
+    font-size: 1.125rem;
+  }
+
+  .search-bar__input::placeholder {
+    font-size: 1rem;
+  }
+
+  .search-bar__submit {
+    margin: 8px;
+    padding: 10px 24px;
+  }
+}
+
+.dark .search-bar__container {
+  background: #111827;
+}
+
+.dark .search-bar__input {
+  color: #ffffff;
+}
+
+.dark .search-bar__clear-btn:hover {
+  color: #e5e7eb;
+}
+
+.dark .search-bar__dropdown {
+  background: #1f2937;
+  border-color: #374151;
+}
+
+.dark .search-bar__dropdown-header {
+  border-color: #374151;
+  color: #9ca3af;
+}
+
+.dark .search-bar__dropdown-item {
+  color: #e5e7eb;
+}
+
+.dark .search-bar__dropdown-item:hover {
+  background: #374151;
+}
+
+.dark .search-bar__avatar-text {
+  color: #c4b5fd;
+}
+
+@keyframes search-bar-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}

@@ -4,6 +4,7 @@ import { Calendar, Clock, User, ArrowRight, Search, Tag } from 'lucide-react';
 import Header from '@/components/instagram/Header';
 import Footer from '@/components/instagram/Footer';
 import SEOHead from '@/components/instagram/SEOHead';
+import './Blog.css';
 
 interface BlogPost {
   id: string;
@@ -114,7 +115,7 @@ const Blog: React.FC = () => {
   });
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
+    <div className="blog-page">
       <SEOHead
         title="Blog - Instagram Tipps & Anleitungen | InstaViewer"
         description="Entdecken Sie hilfreiche Artikel über Instagram Stories, Reels, Datenschutz und mehr. Tipps und Anleitungen für bessere Instagram-Nutzung."
@@ -123,13 +124,13 @@ const Blog: React.FC = () => {
       <Header />
 
       {/* Hero Section */}
-      <section className="relative bg-gradient-to-br from-purple-600 via-pink-500 to-orange-400 py-16 sm:py-24">
-        <div className="absolute inset-0 bg-black/10" />
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h1 className="text-4xl sm:text-5xl font-bold text-white mb-4">
+      <section className="blog-hero">
+        <div className="blog-hero__overlay" />
+        <div className="container-xl px-3 px-sm-4 text-center blog-hero__content">
+          <h1 className="blog-hero__title">
             InstaViewer Blog
           </h1>
-          <p className="text-lg text-white/90 max-w-2xl mx-auto">
+          <p className="blog-hero__subtitle">
             Tipps, Anleitungen und Neuigkeiten rund um Instagram. 
             Bleiben Sie auf dem Laufenden mit den neuesten Trends.
           </p>
@@ -137,31 +138,31 @@ const Blog: React.FC = () => {
       </section>
 
       {/* Search and Filter */}
-      <section className="py-8 bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col sm:flex-row gap-4 items-center justify-between">
+      <section className="blog-filter">
+        <div className="container-xl px-3 px-sm-4">
+          <div className="d-flex flex-column flex-sm-row gap-3 align-items-center justify-content-between">
             {/* Search */}
-            <div className="relative w-full sm:w-96">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+            <div className="blog-filter__search">
+              <Search className="blog-filter__search-icon" />
               <input
                 type="text"
                 placeholder="Artikel suchen..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full pl-10 pr-4 py-2.5 bg-gray-100 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-xl text-gray-900 dark:text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500"
+                className="blog-filter__search-input"
               />
             </div>
 
             {/* Categories */}
-            <div className="flex flex-wrap gap-2">
+            <div className="blog-filter__categories">
               {categories.map((category) => (
                 <button
                   key={category}
                   onClick={() => setSelectedCategory(category === 'Alle' ? null : category)}
-                  className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
+                  className={`blog-filter__chip ${
                     (category === 'Alle' && !selectedCategory) || selectedCategory === category
-                      ? 'bg-gradient-to-r from-purple-600 to-pink-500 text-white'
-                      : 'bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600'
+                      ? 'is-active'
+                      : ''
                   }`}
                 >
                   {category}
@@ -173,83 +174,66 @@ const Blog: React.FC = () => {
       </section>
 
       {/* Blog Posts Grid */}
-      <section className="py-12">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="blog-grid">
+        <div className="container-xl px-3 px-sm-4">
           {filteredPosts.length === 0 ? (
-            <div className="text-center py-12">
-              <p className="text-gray-500 dark:text-gray-400">
+            <div className="blog-grid__empty text-center">
+              <p className="blog-grid__empty-text">
                 Keine Artikel gefunden. Versuchen Sie eine andere Suche.
               </p>
             </div>
           ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div className="row g-4">
               {filteredPosts.map((post) => (
-                <article
-                  key={post.id}
-                  className="bg-white dark:bg-gray-800 rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow border border-gray-100 dark:border-gray-700"
-                >
-                  {/* Image */}
-                  <div className="relative h-48 overflow-hidden">
-                    <img
-                      src={post.image}
-                      alt={post.title}
-                      className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
-                    />
-                    <div className="absolute top-4 left-4">
-                      <span className="px-3 py-1 bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm text-sm font-medium text-purple-600 dark:text-purple-400 rounded-full">
-                        {post.category}
-                      </span>
-                    </div>
-                  </div>
-
-                  {/* Content */}
-                  <div className="p-6">
-                    <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-3 line-clamp-2 hover:text-purple-600 dark:hover:text-purple-400 transition-colors">
-                      <Link to={`/blog/${post.slug}`}>{post.title}</Link>
-                    </h2>
-                    <p className="text-gray-600 dark:text-gray-400 text-sm mb-4 line-clamp-3">
-                      {post.excerpt}
-                    </p>
-
-                    {/* Meta */}
-                    <div className="flex items-center gap-4 text-xs text-gray-500 dark:text-gray-400 mb-4">
-                      <div className="flex items-center gap-1">
-                        <User className="w-3.5 h-3.5" />
-                        <span>{post.author}</span>
-                      </div>
-                      <div className="flex items-center gap-1">
-                        <Calendar className="w-3.5 h-3.5" />
-                        <span>{post.date}</span>
-                      </div>
-                      <div className="flex items-center gap-1">
-                        <Clock className="w-3.5 h-3.5" />
-                        <span>{post.readTime}</span>
-                      </div>
+                <div key={post.id} className="col-12 col-md-6 col-lg-4">
+                  <article className="blog-card">
+                    {/* Image */}
+                    <div className="blog-card__image">
+                      <img src={post.image} alt={post.title} />
+                      <div className="blog-card__badge">{post.category}</div>
                     </div>
 
-                    {/* Tags */}
-                    <div className="flex flex-wrap gap-2 mb-4">
-                      {post.tags.slice(0, 3).map((tag, index) => (
-                        <span
-                          key={index}
-                          className="flex items-center gap-1 px-2 py-1 bg-gray-100 dark:bg-gray-700 text-xs text-gray-600 dark:text-gray-400 rounded"
-                        >
-                          <Tag className="w-3 h-3" />
-                          {tag}
-                        </span>
-                      ))}
-                    </div>
+                    {/* Content */}
+                    <div className="blog-card__body">
+                      <h2 className="blog-card__title">
+                        <Link to={`/blog/${post.slug}`}>{post.title}</Link>
+                      </h2>
+                      <p className="blog-card__excerpt">{post.excerpt}</p>
 
-                    {/* Read More */}
-                    <Link
-                      to={`/blog/${post.slug}`}
-                      className="inline-flex items-center gap-2 text-sm font-medium text-purple-600 dark:text-purple-400 hover:text-pink-500 transition-colors"
-                    >
-                      Weiterlesen
-                      <ArrowRight className="w-4 h-4" />
-                    </Link>
-                  </div>
-                </article>
+                      {/* Meta */}
+                      <div className="blog-card__meta">
+                        <div className="blog-card__meta-item">
+                          <User className="blog-card__meta-icon" />
+                          <span>{post.author}</span>
+                        </div>
+                        <div className="blog-card__meta-item">
+                          <Calendar className="blog-card__meta-icon" />
+                          <span>{post.date}</span>
+                        </div>
+                        <div className="blog-card__meta-item">
+                          <Clock className="blog-card__meta-icon" />
+                          <span>{post.readTime}</span>
+                        </div>
+                      </div>
+
+                      {/* Tags */}
+                      <div className="blog-card__tags">
+                        {post.tags.slice(0, 3).map((tag, index) => (
+                          <span key={index} className="blog-card__tag">
+                            <Tag className="blog-card__tag-icon" />
+                            {tag}
+                          </span>
+                        ))}
+                      </div>
+
+                      {/* Read More */}
+                      <Link to={`/blog/${post.slug}`} className="blog-card__link">
+                        Weiterlesen
+                        <ArrowRight className="blog-card__link-icon" />
+                      </Link>
+                    </div>
+                  </article>
+                </div>
               ))}
             </div>
           )}
@@ -257,23 +241,23 @@ const Blog: React.FC = () => {
       </section>
 
       {/* Newsletter CTA */}
-      <section className="py-16 bg-gray-100 dark:bg-gray-800/50">
-        <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mb-4">
+      <section className="blog-newsletter">
+        <div className="container-md px-3 px-sm-4 text-center">
+          <h2 className="blog-newsletter__title">
             Newsletter abonnieren
           </h2>
-          <p className="text-gray-600 dark:text-gray-400 mb-6">
+          <p className="blog-newsletter__subtitle">
             Erhalten Sie die neuesten Artikel und Tipps direkt in Ihr Postfach.
           </p>
-          <form className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
+          <form className="blog-newsletter__form">
             <input
               type="email"
               placeholder="Ihre E-Mail-Adresse"
-              className="flex-1 px-4 py-3 bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-xl text-gray-900 dark:text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500"
+              className="blog-newsletter__input"
             />
             <button
               type="submit"
-              className="px-6 py-3 bg-gradient-to-r from-purple-600 to-pink-500 text-white font-semibold rounded-xl hover:shadow-lg transition-all"
+              className="blog-newsletter__button"
             >
               Abonnieren
             </button>

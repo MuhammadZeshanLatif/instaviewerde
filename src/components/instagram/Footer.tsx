@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Instagram, Heart, Shield, FileText, Mail, BookOpen, Home, ExternalLink } from 'lucide-react';
+import './Footer.css';
 
 const Footer: React.FC = () => {
   const currentYear = new Date().getFullYear();
@@ -27,41 +28,41 @@ const Footer: React.FC = () => {
   ];
 
   return (
-    <footer className="bg-gray-900 text-gray-300">
+    <footer className="site-footer">
       {/* Main Footer Content */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+      <div className="container-xl px-3 px-sm-4 py-5">
+        <div className="row g-4">
           {/* Brand Section */}
-          <div className="lg:col-span-1">
-            <Link to="/" className="flex items-center gap-2 mb-4">
-              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-purple-600 via-pink-500 to-orange-400 flex items-center justify-center">
-                <Instagram className="w-6 h-6 text-white" />
+          <div className="col-12 col-md-6 col-lg-3">
+            <Link to="/" className="site-footer__brand d-flex align-items-center gap-2 mb-3">
+              <div className="site-footer__logo">
+                <Instagram className="site-footer__logo-icon" />
               </div>
-              <span className="text-xl font-bold text-white">InstaViewer</span>
+              <span className="site-footer__brand-text">InstaViewer</span>
             </Link>
-            <p className="text-sm text-gray-400 mb-4">
+            <p className="site-footer__text">
               Der beste kostenlose Instagram Story Viewer. Sehen Sie Stories, Beiträge und Reels anonym an – ohne Anmeldung.
             </p>
-            <div className="flex items-center gap-2 text-sm text-gray-400">
+            <div className="site-footer__made d-flex align-items-center gap-2">
               <span>Gemacht mit</span>
-              <Heart className="w-4 h-4 text-pink-500 fill-pink-500" />
+              <Heart className="site-footer__heart" />
               <span>in Deutschland</span>
             </div>
           </div>
 
           {/* Quick Links */}
-          <div>
-            <h3 className="text-white font-semibold mb-4">Schnelllinks</h3>
-            <ul className="space-y-3">
+          <div className="col-12 col-md-6 col-lg-3">
+            <h3 className="site-footer__title">Schnelllinks</h3>
+            <ul className="site-footer__list">
               {quickLinks.map((link) => {
                 const Icon = link.icon;
                 return (
                   <li key={link.path}>
                     <Link
                       to={link.path}
-                      className="flex items-center gap-2 text-sm text-gray-400 hover:text-white transition-colors"
+                      className="site-footer__link d-flex align-items-center gap-2"
                     >
-                      <Icon className="w-4 h-4" />
+                      <Icon className="site-footer__link-icon" />
                       {link.label}
                     </Link>
                   </li>
@@ -71,18 +72,18 @@ const Footer: React.FC = () => {
           </div>
 
           {/* Legal Links */}
-          <div>
-            <h3 className="text-white font-semibold mb-4">Rechtliches</h3>
-            <ul className="space-y-3">
+          <div className="col-12 col-md-6 col-lg-3">
+            <h3 className="site-footer__title">Rechtliches</h3>
+            <ul className="site-footer__list">
               {legalLinks.map((link) => {
                 const Icon = link.icon;
                 return (
                   <li key={link.path}>
                     <Link
                       to={link.path}
-                      className="flex items-center gap-2 text-sm text-gray-400 hover:text-white transition-colors"
+                      className="site-footer__link d-flex align-items-center gap-2"
                     >
-                      <Icon className="w-4 h-4" />
+                      <Icon className="site-footer__link-icon" />
                       {link.label}
                     </Link>
                   </li>
@@ -92,12 +93,12 @@ const Footer: React.FC = () => {
           </div>
 
           {/* Features */}
-          <div>
-            <h3 className="text-white font-semibold mb-4">Funktionen</h3>
-            <ul className="space-y-2">
+          <div className="col-12 col-md-6 col-lg-3">
+            <h3 className="site-footer__title">Funktionen</h3>
+            <ul className="site-footer__list site-footer__list--tight">
               {features.map((feature, index) => (
-                <li key={index} className="flex items-center gap-2 text-sm text-gray-400">
-                  <div className="w-1.5 h-1.5 rounded-full bg-gradient-to-r from-purple-500 to-pink-500" />
+                <li key={index} className="site-footer__feature d-flex align-items-center gap-2">
+                  <div className="site-footer__dot" />
                   {feature}
                 </li>
               ))}
@@ -107,13 +108,13 @@ const Footer: React.FC = () => {
       </div>
 
       {/* Bottom Bar */}
-      <div className="border-t border-gray-800">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-          <div className="flex flex-col md:flex-row items-center justify-between gap-4">
-            <p className="text-sm text-gray-500 text-center md:text-left">
+      <div className="site-footer__bottom">
+        <div className="container-xl px-3 px-sm-4 py-4">
+          <div className="d-flex flex-column flex-md-row align-items-center justify-content-between gap-3">
+            <p className="site-footer__copyright text-center text-md-start">
               © {currentYear} InstaViewer. Alle Rechte vorbehalten.
             </p>
-            <p className="text-xs text-gray-600 text-center md:text-right max-w-md">
+            <p className="site-footer__disclaimer text-center text-md-end">
               Diese Website ist nicht mit Instagram oder Meta Platforms, Inc. verbunden. 
               Instagram ist eine eingetragene Marke von Meta Platforms, Inc.
             </p>

@@ -1,5 +1,6 @@
 import React from 'react';
 import { TrendingUp } from 'lucide-react';
+import './PopularProfiles.css';
 
 interface PopularProfilesProps {
   onProfileClick: (username: string) => void;
@@ -22,58 +23,58 @@ const PopularProfiles: React.FC<PopularProfilesProps> = ({ onProfileClick }) => 
   ];
 
   const categoryColors: Record<string, string> = {
-    Sport: 'bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400',
-    Influencer: 'bg-pink-100 dark:bg-pink-900/30 text-pink-700 dark:text-pink-400',
-    Entertainment: 'bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-400',
-    Musik: 'bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400',
-    Mode: 'bg-orange-100 dark:bg-orange-900/30 text-orange-700 dark:text-orange-400',
+    Sport: 'popular-profiles__badge--green',
+    Influencer: 'popular-profiles__badge--pink',
+    Entertainment: 'popular-profiles__badge--purple',
+    Musik: 'popular-profiles__badge--blue',
+    Mode: 'popular-profiles__badge--orange',
   };
 
   return (
-    <section className="py-12">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section className="popular-profiles py-4 py-sm-5">
+      <div className="container-xl px-3 px-sm-4">
         {/* Section Header */}
-        <div className="flex items-center gap-3 mb-6">
-          <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-purple-600 via-pink-500 to-orange-400 flex items-center justify-center">
-            <TrendingUp className="w-5 h-5 text-white" />
+        <div className="d-flex align-items-center gap-3 mb-4">
+          <div className="popular-profiles__icon">
+            <TrendingUp className="popular-profiles__icon-svg" />
           </div>
           <div>
-            <h2 className="text-xl font-bold text-gray-900 dark:text-white">
+            <h2 className="popular-profiles__title">
               Beliebte Profile
             </h2>
-            <p className="text-sm text-gray-500 dark:text-gray-400">
+            <p className="popular-profiles__subtitle">
               Entdecken Sie die meistgesuchten Profile
             </p>
           </div>
         </div>
 
         {/* Profile Chips */}
-        <div className="flex flex-wrap gap-3">
+        <div className="popular-profiles__list">
           {popularProfiles.map((profile, index) => (
             <button
               key={index}
               onClick={() => onProfileClick(profile.username)}
-              className="group flex items-center gap-3 px-4 py-2.5 bg-white dark:bg-gray-800 rounded-full border border-gray-200 dark:border-gray-700 hover:border-purple-300 dark:hover:border-purple-600 hover:shadow-md transition-all"
+              className="popular-profiles__chip"
             >
               {/* Avatar Placeholder */}
-              <div className="w-8 h-8 rounded-full bg-gradient-to-br from-purple-600/20 via-pink-500/20 to-orange-400/20 flex items-center justify-center">
-                <span className="text-sm font-semibold text-purple-600 dark:text-purple-400">
+              <div className="popular-profiles__avatar">
+                <span className="popular-profiles__avatar-text">
                   {profile.username.charAt(0).toUpperCase()}
                 </span>
               </div>
               
               {/* Info */}
-              <div className="text-left">
-                <p className="text-sm font-medium text-gray-900 dark:text-white group-hover:text-purple-600 dark:group-hover:text-purple-400 transition-colors">
+              <div className="text-start">
+                <p className="popular-profiles__username">
                   @{profile.username}
                 </p>
-                <p className="text-xs text-gray-500 dark:text-gray-400">
+                <p className="popular-profiles__name">
                   {profile.name}
                 </p>
               </div>
               
               {/* Category Badge */}
-              <span className={`text-xs px-2 py-0.5 rounded-full ${categoryColors[profile.category] || 'bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-400'}`}>
+              <span className={`popular-profiles__badge ${categoryColors[profile.category] || 'popular-profiles__badge--gray'}`}>
                 {profile.category}
               </span>
             </button>

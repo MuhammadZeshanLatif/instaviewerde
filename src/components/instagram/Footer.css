@@ -1,0 +1,111 @@
+.site-footer {
+  background: #111827;
+  color: #d1d5db;
+}
+
+.site-footer__brand {
+  text-decoration: none;
+}
+
+.site-footer__logo {
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #7c3aed 0%, #ec4899 50%, #fb923c 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.site-footer__logo-icon {
+  width: 24px;
+  height: 24px;
+  color: #ffffff;
+}
+
+.site-footer__brand-text {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.site-footer__text {
+  font-size: 0.875rem;
+  color: #9ca3af;
+  margin-bottom: 16px;
+}
+
+.site-footer__made {
+  font-size: 0.875rem;
+  color: #9ca3af;
+}
+
+.site-footer__heart {
+  width: 16px;
+  height: 16px;
+  color: #ec4899;
+  fill: #ec4899;
+}
+
+.site-footer__title {
+  font-weight: 600;
+  color: #ffffff;
+  margin-bottom: 16px;
+}
+
+.site-footer__list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 12px;
+}
+
+.site-footer__list--tight {
+  gap: 8px;
+}
+
+.site-footer__link {
+  font-size: 0.875rem;
+  color: #9ca3af;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.site-footer__link:hover {
+  color: #ffffff;
+}
+
+.site-footer__link-icon {
+  width: 16px;
+  height: 16px;
+}
+
+.site-footer__feature {
+  font-size: 0.875rem;
+  color: #9ca3af;
+}
+
+.site-footer__dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 9999px;
+  background: linear-gradient(90deg, #a855f7 0%, #ec4899 100%);
+}
+
+.site-footer__bottom {
+  border-top: 1px solid #1f2937;
+}
+
+.site-footer__copyright {
+  font-size: 0.875rem;
+  color: #6b7280;
+  margin: 0;
+}
+
+.site-footer__disclaimer {
+  font-size: 0.75rem;
+  color: #6b7280;
+  margin: 0;
+  max-width: 520px;
+}

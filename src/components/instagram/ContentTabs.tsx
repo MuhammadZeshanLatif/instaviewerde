@@ -1,5 +1,6 @@
 import React from 'react';
 import { PlayCircle, Grid3X3, Film, Star } from 'lucide-react';
+import './ContentTabs.css';
 
 export type TabType = 'stories' | 'posts' | 'reels' | 'highlights';
 
@@ -28,8 +29,8 @@ const ContentTabs: React.FC<ContentTabsProps> = ({
   ];
 
   return (
-    <div className="w-full max-w-3xl mx-auto">
-      <div className="flex items-center justify-center gap-2 p-1 bg-gray-100 dark:bg-gray-800 rounded-xl">
+    <div className="content-tabs mx-auto">
+      <div className="content-tabs__bar">
         {tabs.map((tab) => {
           const Icon = tab.icon;
           const isActive = activeTab === tab.id;
@@ -38,20 +39,12 @@ const ContentTabs: React.FC<ContentTabsProps> = ({
             <button
               key={tab.id}
               onClick={() => onTabChange(tab.id)}
-              className={`flex-1 flex items-center justify-center gap-2 px-4 py-3 rounded-lg text-sm font-medium transition-all ${
-                isActive
-                  ? 'bg-white dark:bg-gray-700 text-purple-600 dark:text-purple-400 shadow-sm'
-                  : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200'
-              }`}
+              className={`content-tabs__button ${isActive ? 'is-active' : ''}`}
             >
-              <Icon className={`w-4 h-4 ${isActive ? 'text-purple-600 dark:text-purple-400' : ''}`} />
-              <span className="hidden sm:inline">{tab.label}</span>
+              <Icon className="content-tabs__icon" />
+              <span className="d-none d-sm-inline">{tab.label}</span>
               {tab.count > 0 && (
-                <span className={`text-xs px-1.5 py-0.5 rounded-full ${
-                  isActive 
-                    ? 'bg-purple-100 dark:bg-purple-900/50 text-purple-600 dark:text-purple-400' 
-                    : 'bg-gray-200 dark:bg-gray-700 text-gray-500 dark:text-gray-400'
-                }`}>
+                <span className={`content-tabs__badge ${isActive ? 'is-active' : ''}`}>
                   {tab.count}
                 </span>
               )}

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { ChevronDown, HelpCircle } from 'lucide-react';
+import './FAQ.css';
 
 interface FAQItem {
   question: string;
@@ -45,47 +46,43 @@ const FAQ: React.FC = () => {
   ];
 
   return (
-    <section className="py-16 bg-white dark:bg-gray-900">
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section className="faq-section">
+      <div className="container-lg px-3 px-sm-4">
         {/* Section Header */}
-        <div className="text-center mb-12">
-          <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-br from-purple-600 via-pink-500 to-orange-400 mb-6">
-            <HelpCircle className="w-8 h-8 text-white" />
+        <div className="text-center mb-5">
+          <div className="faq-section__icon">
+            <HelpCircle className="faq-section__icon-svg" />
           </div>
-          <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white mb-4">
+          <h2 className="faq-section__title">
             Häufig gestellte Fragen
           </h2>
-          <p className="text-lg text-gray-600 dark:text-gray-400">
+          <p className="faq-section__subtitle">
             Finden Sie Antworten auf die häufigsten Fragen zu InstaViewer.
           </p>
         </div>
 
         {/* FAQ Items */}
-        <div className="space-y-4">
+        <div className="faq-section__list">
           {faqs.map((faq, index) => (
             <div
               key={index}
-              className="bg-gray-50 dark:bg-gray-800 rounded-xl overflow-hidden border border-gray-100 dark:border-gray-700"
+              className="faq-section__item"
             >
               <button
                 onClick={() => setOpenIndex(openIndex === index ? null : index)}
-                className="w-full flex items-center justify-between p-5 text-left"
+                className="faq-section__question"
               >
-                <span className="font-medium text-gray-900 dark:text-white pr-4">
+                <span className="faq-section__question-text">
                   {faq.question}
                 </span>
                 <ChevronDown
-                  className={`w-5 h-5 text-gray-500 transition-transform duration-300 flex-shrink-0 ${
-                    openIndex === index ? 'rotate-180' : ''
-                  }`}
+                  className={`faq-section__chevron ${openIndex === index ? 'is-open' : ''}`}
                 />
               </button>
               <div
-                className={`overflow-hidden transition-all duration-300 ${
-                  openIndex === index ? 'max-h-96' : 'max-h-0'
-                }`}
+                className={`faq-section__answer ${openIndex === index ? 'is-open' : ''}`}
               >
-                <p className="px-5 pb-5 text-gray-600 dark:text-gray-400 leading-relaxed">
+                <p className="faq-section__answer-text">
                   {faq.answer}
                 </p>
               </div>

@@ -1,0 +1,132 @@
+.how-it-works {
+  padding: 64px 0;
+  background: #f9fafb;
+}
+
+.how-it-works__title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #111827;
+  margin-bottom: 12px;
+}
+
+.how-it-works__subtitle {
+  font-size: 1.125rem;
+  color: #6b7280;
+  margin: 0 auto;
+  max-width: 640px;
+}
+
+.how-it-works__connector {
+  position: absolute;
+  top: 64px;
+  left: 100%;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, #d1d5db 0%, rgba(209, 213, 219, 0) 100%);
+  transform: translateX(-50%);
+  z-index: 0;
+}
+
+.how-it-works__connector-icon {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 20px;
+  height: 20px;
+  color: #d1d5db;
+}
+
+.how-it-works__card {
+  position: relative;
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 32px;
+  border: 1px solid #f3f4f6;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.06);
+  text-align: center;
+  z-index: 1;
+}
+
+.how-it-works__number {
+  position: absolute;
+  top: -16px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 4px 16px;
+  border-radius: 9999px;
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.how-it-works__icon {
+  width: 64px;
+  height: 64px;
+  border-radius: 16px;
+  margin: 16px auto 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.how-it-works__icon-svg {
+  width: 32px;
+  height: 32px;
+  color: #ffffff;
+}
+
+.how-it-works__step-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #111827;
+  margin-bottom: 12px;
+}
+
+.how-it-works__step-text {
+  color: #6b7280;
+  margin: 0;
+}
+
+.how-it-works__step--purple .how-it-works__number,
+.how-it-works__step--purple .how-it-works__icon {
+  background: linear-gradient(135deg, #7c3aed 0%, #a855f7 100%);
+}
+
+.how-it-works__step--pink .how-it-works__number,
+.how-it-works__step--pink .how-it-works__icon {
+  background: linear-gradient(135deg, #ec4899 0%, #f472b6 100%);
+}
+
+.how-it-works__step--orange .how-it-works__number,
+.how-it-works__step--orange .how-it-works__icon {
+  background: linear-gradient(135deg, #f97316 0%, #fb923c 100%);
+}
+
+.dark .how-it-works {
+  background: rgba(17, 24, 39, 0.5);
+}
+
+.dark .how-it-works__title,
+.dark .how-it-works__step-title {
+  color: #ffffff;
+}
+
+.dark .how-it-works__subtitle,
+.dark .how-it-works__step-text {
+  color: #9ca3af;
+}
+
+.dark .how-it-works__card {
+  background: #1f2937;
+  border-color: #374151;
+}
+
+.dark .how-it-works__connector {
+  background: linear-gradient(90deg, #374151 0%, rgba(55, 65, 81, 0) 100%);
+}
+
+.dark .how-it-works__connector-icon {
+  color: #374151;
+}

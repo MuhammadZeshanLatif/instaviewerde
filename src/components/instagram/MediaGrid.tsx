@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Play, Image as ImageIcon, Download, Eye, Loader2 } from 'lucide-react';
 import { Post, getProxiedUrl } from '@/lib/instagram-api';
+import './MediaGrid.css';
 
 interface MediaGridProps {
   posts: Post[];
@@ -11,11 +12,11 @@ interface MediaGridProps {
 const MediaGrid: React.FC<MediaGridProps> = ({ posts, onMediaClick, isLoading = false }) => {
   if (isLoading) {
     return (
-      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4">
+      <div className="media-grid">
         {Array.from({ length: 8 }).map((_, index) => (
           <div
             key={index}
-            className="aspect-square bg-gray-200 dark:bg-gray-700 rounded-xl animate-pulse"
+            className="media-grid__skeleton"
           />
         ))}
       </div>
@@ -24,17 +25,17 @@ const MediaGrid: React.FC<MediaGridProps> = ({ posts, onMediaClick, isLoading = 
 
   if (!posts || posts.length === 0) {
     return (
-      <div className="text-center py-12">
-        <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-gray-100 dark:bg-gray-800 flex items-center justify-center">
-          <ImageIcon className="w-8 h-8 text-gray-400" />
+      <div className="media-grid__empty text-center">
+        <div className="media-grid__empty-icon">
+          <ImageIcon className="media-grid__empty-icon-svg" />
         </div>
-        <p className="text-gray-500 dark:text-gray-400">Keine Inhalte verfügbar</p>
+        <p className="media-grid__empty-text">Keine Inhalte verfügbar</p>
       </div>
     );
   }
 
   return (
-    <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4">
+    <div className="media-grid">
       {posts.map((post, index) => (
         <MediaItem key={post.id || index} post={post} onClick={() => onMediaClick(post)} />
       ))}
@@ -78,12 +79,12 @@ const MediaItem: React.FC<MediaItemProps> = ({ post, onClick }) => {
   return (
     <div
       onClick={onClick}
-      className="group relative aspect-square bg-gray-100 dark:bg-gray-800 rounded-xl overflow-hidden cursor-pointer"
+      className="media-grid__item"
     >
       {/* Loading State */}
       {!imageLoaded && !imageError && (
-        <div className="absolute inset-0 flex items-center justify-center bg-gray-200 dark:bg-gray-700 animate-pulse">
-          <Loader2 className="w-6 h-6 text-gray-400 animate-spin" />
+        <div className="media-grid__loading">
+          <Loader2 className="media-grid__loading-spinner" />
         </div>
       )}
 
@@ -92,9 +93,7 @@ const MediaItem: React.FC<MediaItemProps> = ({ post, onClick }) => {
         <img
           src={currentUrl}
           alt="Instagram Beitrag"
-          className={`w-full h-full object-cover transition-all duration-300 group-hover:scale-105 ${
-            imageLoaded ? 'opacity-100' : 'opacity-0'
-          }`}
+          className={`media-grid__image ${imageLoaded ? 'is-visible' : ''}`}
           crossOrigin="anonymous"
           referrerPolicy="no-referrer"
           onLoad={() => setImageLoaded(true)}
@@ -104,26 +103,24 @@ const MediaItem: React.FC<MediaItemProps> = ({ post, onClick }) => {
 
       {/* Error State */}
       {imageError && (
-        <div className="absolute inset-0 flex flex-col items-center justify-center bg-gray-200 dark:bg-gray-700">
-          <ImageIcon className="w-8 h-8 text-gray-400 mb-2" />
-          <span className="text-xs text-gray-500">Fehler beim Laden</span>
+        <div className="media-grid__error">
+          <ImageIcon className="media-grid__error-icon" />
+          <span className="media-grid__error-text">Fehler beim Laden</span>
         </div>
       )}
 
       {/* Video Indicator */}
       {isVideo && (
-        <div className="absolute top-2 right-2 w-8 h-8 bg-black/50 backdrop-blur-sm rounded-full flex items-center justify-center">
-          <Play className="w-4 h-4 text-white fill-white" />
+        <div className="media-grid__video">
+          <Play className="media-grid__video-icon" />
         </div>
       )}
 
       {/* Hover Overlay */}
-      <div className="absolute inset-0 bg-black/0 group-hover:bg-black/40 transition-colors flex items-center justify-center opacity-0 group-hover:opacity-100">
-        <div className="flex items-center gap-4">
-          <div className="flex items-center gap-1.5 text-white">
-            <Eye className="w-5 h-5" />
-            <span className="text-sm font-medium">Ansehen</span>
-          </div>
+      <div className="media-grid__overlay">
+        <div className="media-grid__overlay-content">
+          <Eye className="media-grid__overlay-icon" />
+          <span className="media-grid__overlay-text">Ansehen</span>
         </div>
       </div>
 
@@ -133,9 +130,9 @@ const MediaItem: React.FC<MediaItemProps> = ({ post, onClick }) => {
           e.stopPropagation();
           onClick();
         }}
-        className="absolute bottom-2 right-2 w-8 h-8 bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity hover:bg-white dark:hover:bg-gray-700"
+        className="media-grid__download"
       >
-        <Download className="w-4 h-4 text-gray-700 dark:text-gray-300" />
+        <Download className="media-grid__download-icon" />
       </button>
     </div>
   );
