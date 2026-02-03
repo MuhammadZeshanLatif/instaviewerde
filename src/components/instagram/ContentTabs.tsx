@@ -54,7 +54,14 @@ const ContentTabs: React.FC<ContentTabsProps> = ({
           );
         })}
       </div>
-      {isLoading && <div className="content-tabs__loading" />}
+      {isLoading && (
+        <div className="content-tabs__loading-boxes">
+          <span />
+          <span />
+          <span />
+          <span />
+        </div>
+      )}
     </div>
   );
 };
