@@ -7,6 +7,7 @@ interface SEOHeadProps {
   canonicalUrl?: string;
   ogImage?: string;
   noIndex?: boolean;
+  structuredData?: Record<string, unknown> | Record<string, unknown>[];
 }
 
 const SEOHead: React.FC<SEOHeadProps> = ({
@@ -16,6 +17,7 @@ const SEOHead: React.FC<SEOHeadProps> = ({
   canonicalUrl = 'https://instaviewer.de',
   ogImage = '/og-image.jpg',
   noIndex = false,
+  structuredData,
 }) => {
   useEffect(() => {
     // Update document title
@@ -67,7 +69,7 @@ const SEOHead: React.FC<SEOHeadProps> = ({
     document.documentElement.lang = 'de';
 
     // Add structured data
-    const structuredData = {
+    const baseStructuredData = {
       '@context': 'https://schema.org',
       '@type': 'WebApplication',
       name: 'InstaViewer',
@@ -87,6 +89,17 @@ const SEOHead: React.FC<SEOHeadProps> = ({
       },
     };
 
+    const extraStructuredData = structuredData
+      ? (Array.isArray(structuredData) ? structuredData : [structuredData])
+      : [];
+
+    const structuredDataPayload = extraStructuredData.length
+      ? {
+          '@context': 'https://schema.org',
+          '@graph': [baseStructuredData, ...extraStructuredData],
+        }
+      : baseStructuredData;
+
     let script = document.querySelector('#structured-data') as HTMLScriptElement;
     if (!script) {
       script = document.createElement('script');
@@ -94,9 +107,9 @@ const SEOHead: React.FC<SEOHeadProps> = ({
       script.type = 'application/ld+json';
       document.head.appendChild(script);
     }
-    script.textContent = JSON.stringify(structuredData);
+    script.textContent = JSON.stringify(structuredDataPayload);
 
-  }, [title, description, keywords, canonicalUrl, ogImage, noIndex]);
+  }, [title, description, keywords, canonicalUrl, ogImage, noIndex, structuredData]);
 
   return null;
 };

@@ -9,35 +9,48 @@
 }
 
 .search-bar__border {
-  position: absolute;
-  inset: -2px;
-  border-radius: 16px;
-  background: linear-gradient(90deg, #7c3aed 0%, #ec4899 50%, #fb923c 100%);
-  opacity: 0.75;
-  filter: blur(6px);
-  transition: opacity 0.2s ease;
+  display: none;
 }
 
 .search-bar__wrapper:hover .search-bar__border {
-  opacity: 1;
+  opacity: 0.45;
 }
 
 .search-bar__container {
   position: relative;
   background: #ffffff;
-  border-radius: 16px;
+  border-radius: 4px;
   z-index: 1;
+  border: 1px solid #e5e7eb;
+  box-shadow: 0 2px 10px rgba(15, 23, 42, 0.06);
+  padding: 2px;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.search-bar__wrapper:hover .search-bar__container {
+  border-color: #cbd5f5;
+}
+
+.search-bar__wrapper:focus-within .search-bar__container {
+  border-color: #60a5fa;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2), 0 2px 10px rgba(15, 23, 42, 0.06);
 }
 
 .search-bar__icon {
   padding-left: 16px;
-  padding-right: 8px;
+  padding-right: 6px;
 }
 
 .search-bar__icon-svg {
   width: 20px;
   height: 20px;
   color: #9ca3af;
+  transition: color 0.2s ease;
+}
+
+.search-bar__wrapper:focus-within .search-bar__icon-svg {
+  animation: none;
+  color: #6b7280;
 }
 
 .search-bar__input {
@@ -47,25 +60,33 @@
   padding: 12px 8px;
   font-size: 1rem;
   color: #111827;
+  font-weight: 500;
 }
 
 .search-bar__input::placeholder {
   color: #9ca3af;
-  font-size: 0.875rem;
+  font-size: 0.9rem;
+  transition: opacity 0.2s ease;
 }
 
 .search-bar__input:focus {
   box-shadow: none;
 }
 
+.search-bar__input:focus::placeholder {
+  opacity: 0.4;
+}
+
 .search-bar__clear-btn {
   color: #9ca3af;
   text-decoration: none;
-  padding: 8px;
+  padding: 6px;
+  border-radius: 999px;
 }
 
 .search-bar__clear-btn:hover {
   color: #6b7280;
+  background: rgba(148, 163, 184, 0.18);
 }
 
 .search-bar__clear-icon {
@@ -75,15 +96,17 @@
 
 .search-bar__submit {
   margin: 4px;
-  padding: 8px 12px;
+  padding: 10px 22px;
   border-radius: 12px;
   color: #ffffff;
   font-weight: 600;
-  background: linear-gradient(90deg, #7c3aed 0%, #ec4899 50%, #fb923c 100%);
+  background: #3b82f6;
   border: 0;
   display: inline-flex;
   align-items: center;
   gap: 8px;
+  box-shadow: 0 6px 14px rgba(59, 130, 246, 0.25);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
 }
 
 .search-bar__submit:disabled {
@@ -92,7 +115,9 @@
 }
 
 .search-bar__submit:hover:not(:disabled) {
-  box-shadow: 0 8px 20px rgba(236, 72, 153, 0.25);
+  background: #2563eb;
+  transform: translateY(-1px);
+  box-shadow: 0 10px 20px rgba(37, 99, 235, 0.28);
 }
 
 .search-bar__submit-icon,
@@ -118,7 +143,7 @@
   margin-top: 8px;
   background: #ffffff;
   border-radius: 12px;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 12px 24px rgba(15, 23, 42, 0.12);
   border: 1px solid #e5e7eb;
   overflow: hidden;
 }
@@ -172,7 +197,7 @@
   width: 32px;
   height: 32px;
   border-radius: 9999px;
-  background: linear-gradient(135deg, rgba(124, 58, 237, 0.2) 0%, rgba(236, 72, 153, 0.2) 50%, rgba(251, 146, 60, 0.2) 100%);
+  background: rgba(59, 130, 246, 0.12);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -181,7 +206,7 @@
 .search-bar__avatar-text {
   font-size: 0.875rem;
   font-weight: 600;
-  color: #7c3aed;
+  color: #3b82f6;
 }
 
 .search-bar__username {
@@ -191,7 +216,7 @@
 @media (min-width: 576px) {
   .search-bar__input {
     padding: 14px 8px;
-    font-size: 1.125rem;
+    font-size: 1.05rem;
   }
 
   .search-bar__input::placeholder {
@@ -200,12 +225,13 @@
 
   .search-bar__submit {
     margin: 8px;
-    padding: 10px 24px;
+    padding: 10px 22px;
   }
 }
 
 .dark .search-bar__container {
   background: #111827;
+  border-color: #374151;
 }
 
 .dark .search-bar__input {
@@ -219,6 +245,15 @@
 .dark .search-bar__dropdown {
   background: #1f2937;
   border-color: #374151;
+}
+
+.dark .search-bar__submit {
+  background: #3b82f6;
+  color: #ffffff;
+}
+
+.dark .search-bar__submit:hover:not(:disabled) {
+  background: #2563eb;
 }
 
 .dark .search-bar__dropdown-header {

@@ -6,9 +6,10 @@
 
 .media-grid__skeleton {
   aspect-ratio: 1 / 1;
-  background: #e5e7eb;
+  background: linear-gradient(90deg, #e5e7eb 0%, #f3f4f6 50%, #e5e7eb 100%);
+  background-size: 200% 100%;
   border-radius: 12px;
-  animation: media-grid-pulse 1.2s infinite ease-in-out;
+  animation: media-grid-shimmer 1.2s infinite linear;
 }
 
 .media-grid__empty {
@@ -52,8 +53,9 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #e5e7eb;
-  animation: media-grid-pulse 1.2s infinite ease-in-out;
+  background: linear-gradient(90deg, #e5e7eb 0%, #f3f4f6 50%, #e5e7eb 100%);
+  background-size: 200% 100%;
+  animation: media-grid-shimmer 1.2s infinite linear;
 }
 
 .media-grid__loading-spinner {
@@ -202,6 +204,8 @@
 .dark .media-grid__loading,
 .dark .media-grid__item {
   background: #374151;
+  background-image: linear-gradient(90deg, #374151 0%, #4b5563 50%, #374151 100%);
+  background-size: 200% 100%;
 }
 
 .dark .media-grid__empty-icon {
@@ -224,13 +228,12 @@
   color: #e5e7eb;
 }
 
-@keyframes media-grid-pulse {
-  0%,
-  100% {
-    opacity: 0.8;
+@keyframes media-grid-shimmer {
+  0% {
+    background-position: 200% 0;
   }
-  50% {
-    opacity: 0.5;
+  100% {
+    background-position: -200% 0;
   }
 }
 

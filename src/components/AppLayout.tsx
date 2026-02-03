@@ -1,5 +1,5 @@
 import React, { useState, useCallback, useRef } from 'react';
-import { Eye, EyeOff, Download, Shield, Zap, Globe, Lock, Smartphone, Heart } from 'lucide-react';
+import { Eye, Lock, Heart } from 'lucide-react';
 import { toast } from 'sonner';
 import Header from './instagram/Header';
 import Footer from './instagram/Footer';
@@ -8,9 +8,6 @@ import ProfileCard from './instagram/ProfileCard';
 import MediaGrid from './instagram/MediaGrid';
 import MediaModal from './instagram/MediaModal';
 import ContentTabs, { TabType } from './instagram/ContentTabs';
-import FeatureCard from './instagram/FeatureCard';
-import HowItWorks from './instagram/HowItWorks';
-import FAQ from './instagram/FAQ';
 import PopularProfiles from './instagram/PopularProfiles';
 import SEOHead from './instagram/SEOHead';
 import './AppLayout.css';
@@ -53,44 +50,43 @@ const AppLayout: React.FC = () => {
   const resultsRef = useRef<HTMLDivElement>(null);
   const currentUsername = useRef<string>('');
 
-  const features = [
-    {
-      icon: EyeOff,
-      title: 'Anonym ansehen',
-      description: 'Sehen Sie Stories und Beiträge an, ohne dass der Benutzer es erfährt.',
-      gradient: 'from-purple-600 to-purple-400',
-    },
-    {
-      icon: Download,
-      title: 'Einfach herunterladen',
-      description: 'Laden Sie Bilder und Videos in Originalqualität herunter.',
-      gradient: 'from-pink-600 to-pink-400',
-    },
-    {
-      icon: Shield,
-      title: 'Sicher & Privat',
-      description: 'Ihre Daten werden nicht gespeichert. 100% sichere Verbindung.',
-      gradient: 'from-green-600 to-green-400',
-    },
-    {
-      icon: Zap,
-      title: 'Blitzschnell',
-      description: 'Sofortige Ergebnisse ohne Wartezeit oder Verzögerungen.',
-      gradient: 'from-orange-500 to-orange-400',
-    },
-    {
-      icon: Globe,
-      title: 'Keine Anmeldung',
-      description: 'Kein Konto erforderlich. Einfach Benutzername eingeben und loslegen.',
-      gradient: 'from-blue-600 to-blue-400',
-    },
-    {
-      icon: Smartphone,
-      title: 'Alle Geräte',
-      description: 'Funktioniert auf Desktop, Tablet und Smartphone gleichermaßen gut.',
-      gradient: 'from-indigo-600 to-indigo-400',
-    },
-  ];
+  const faqStructuredData = {
+    '@type': 'FAQPage',
+    mainEntity: [
+      {
+        '@type': 'Question',
+        name: 'Wie schnell erhalte ich Ergebnisse?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'Ergebnisse erscheinen in der Regel in wenigen Sekunden, abhängig von Netzwerk und Profilgröße.',
+        },
+      },
+      {
+        '@type': 'Question',
+        name: 'Benötige ich ein Konto?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'Nein, Sie können den Dienst ohne Anmeldung verwenden.',
+        },
+      },
+      {
+        '@type': 'Question',
+        name: 'Werden Daten gespeichert?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'Suchverläufe bleiben lokal im Browser, es werden keine Profile oder Inhalte serverseitig gespeichert.',
+        },
+      },
+      {
+        '@type': 'Question',
+        name: 'Kann ich Medien herunterladen?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'Ja, je nach Inhaltstyp können Medien in den üblichen Formaten geladen werden.',
+        },
+      },
+    ],
+  };
 
   const handleSearch = useCallback(async (username: string) => {
     setIsLoading(true);
@@ -181,7 +177,7 @@ const AppLayout: React.FC = () => {
 
   return (
     <div className="app-layout">
-      <SEOHead />
+      <SEOHead structuredData={faqStructuredData} />
       <Header />
 
       {/* Hero Section */}
@@ -254,6 +250,7 @@ const AppLayout: React.FC = () => {
                   postsCount={contentCache.posts.length}
                   reelsCount={contentCache.reels.length}
                   highlightsCount={contentCache.highlights.length}
+                  isLoading={tabLoading[activeTab]}
                 />
 
                 {/* Media Grid */}
@@ -273,68 +270,193 @@ const AppLayout: React.FC = () => {
       {/* Popular Profiles */}
       <PopularProfiles onProfileClick={handleProfileClick} />
 
-      {/* Features Section */}
-      <section className="features-section">
-        <div className="container-xl px-3 px-sm-4">
-          <div className="text-center mb-5">
-            <h2 className="features-section__title">
-              Warum InstaViewer?
-            </h2>
-            <p className="features-section__subtitle">
-              Entdecken Sie die Vorteile unseres kostenlosen Instagram Story Viewers.
+      {/* Complete Guide Section */}
+      <section className="guide-section">
+        <div className="container-lg px-3 px-sm-4">
+          <div className="guide-section__card">
+            <h2 className="guide-section__title">InstaViewer Story Viewer – kompletter Überblick</h2>
+            <p className="guide-section__lead">
+              Wenn Sie eine klare, schnelle und sichere Übersicht über öffentliche Inhalte wünschen, ist
+              ein strukturierter Ablauf entscheidend. InstaViewer fasst die wichtigsten Schritte in einem
+              einzigen Prozess zusammen: Benutzername prüfen, Kernzahlen ansehen, Inhalte gezielt öffnen.
+              So behalten Sie den Überblick und vermeiden unnötige Umwege.
             </p>
-          </div>
 
-          <div className="row g-4">
-            {features.map((feature, index) => (
-              <div key={index} className="col-12 col-sm-6 col-lg-4">
-                <FeatureCard
-                  icon={feature.icon}
-                  title={feature.title}
-                  description={feature.description}
-                  gradient={feature.gradient}
-                />
-              </div>
-            ))}
+            <h3 className="guide-section__subtitle">Was Sie mit InstaViewer erhalten</h3>
+            <p className="guide-section__text">
+              Der Fokus liegt auf Geschwindigkeit, Klarheit und einer sauberen Oberfläche. Sie erhalten
+              eine schnelle Profilübersicht, verlässliche Statistiken, eine klare Inhaltsstruktur und die
+              Möglichkeit, Medien gezielt zu öffnen. Der Ablauf bleibt konsequent, damit Ergebnisse
+              nachvollziehbar bleiben und Sie effizient vergleichen können.
+            </p>
+            <p className="guide-section__text">
+              Wenn Sie regelmäßig mehrere Profile prüfen, hilft ein fester Rhythmus: erst Namen, dann
+              Kennzahlen, danach gezielte Inhalte. InstaViewer macht diesen Ablauf leicht nachvollziehbar,
+              sodass Sie nicht zwischen verschiedenen Seiten wechseln müssen. Die Struktur bleibt klar,
+              damit Sie jeden Schritt direkt wiederfinden und gezielt Entscheidungen treffen können. Das
+              spart Zeit und hält den Fokus auf das Wesentliche.
+            </p>
+
+            <h3 className="guide-section__subtitle">So funktioniert der Ablauf</h3>
+            <ul className="guide-section__list">
+              <li>Benutzernamen eingeben und auf Plausibilität prüfen.</li>
+              <li>Kennzahlen zuerst betrachten, um die Relevanz schnell einzuschätzen.</li>
+              <li>Inhalte nach Typ filtern und nur das öffnen, was Sie wirklich brauchen.</li>
+              <li>Suchverlauf nutzen, um wiederkehrende Profile schneller zu prüfen.</li>
+            </ul>
+
+            <h3 className="guide-section__subtitle">Funktionen und Nutzen</h3>
+            <ul className="guide-section__list">
+              <li>Übersichtliche Profilkarte mit klaren Kennzahlen.</li>
+              <li>Inhalte nach Kategorien strukturiert und schnell zugänglich.</li>
+              <li>Direkte Downloads für Medien, wenn verfügbar.</li>
+              <li>Schlanke Oberfläche ohne Ablenkungen.</li>
+            </ul>
+
+            <h3 className="guide-section__subtitle">Privatsphäre und Sicherheit</h3>
+            <p className="guide-section__text">
+              Suchanfragen bleiben lokal im Browser, es werden keine Profile gespeichert. Der Fokus liegt
+              auf einer sicheren Nutzung ohne Anmeldung, damit Sie die Kontrolle behalten. Wenn Sie
+              bestimmte Inhalte nicht öffnen möchten, können Sie den Ablauf jederzeit abbrechen.
+            </p>
+
+            <h3 className="guide-section__subtitle">Downloads und Formate</h3>
+            <p className="guide-section__text">
+              Inhalte lassen sich nur dann speichern, wenn sie öffentlich zugänglich sind. Je nach
+              Medientyp können gängige Bild- oder Videoformate genutzt werden. Sie entscheiden, wann ein
+              Download sinnvoll ist und wann eine reine Vorschau ausreicht.
+            </p>
+
+            <h3 className="guide-section__subtitle">Kompatibilität</h3>
+            <p className="guide-section__text">
+              Die Oberfläche ist auf Desktop, Tablet und Smartphone optimiert. Das Layout bleibt klar, die
+              Bedienelemente sind kompakt und die Navigation ist auf schnelle Schritte ausgelegt.
+            </p>
+
+            <h3 className="guide-section__subtitle">Grenzen und Verantwortung</h3>
+            <p className="guide-section__text">
+              Private Profile können nicht angezeigt werden. Nutzen Sie Inhalte verantwortungsvoll und
+              respektieren Sie Rechte Dritter. Der Dienst unterstützt einen schnellen Überblick, ersetzt
+              jedoch keine rechtliche Prüfung.
+            </p>
+
+            <h3 className="guide-section__subtitle">Kurz-FAQ</h3>
+            <div className="guide-section__faq">
+              <details className="guide-section__faq-item" open>
+                <summary>Wie schnell sind Ergebnisse verfügbar?</summary>
+                <p>Meist in wenigen Sekunden.</p>
+              </details>
+              <details className="guide-section__faq-item">
+                <summary>Brauche ich ein Konto?</summary>
+                <p>Nein, die Nutzung funktioniert ohne Anmeldung.</p>
+              </details>
+              <details className="guide-section__faq-item">
+                <summary>Werden Daten gespeichert?</summary>
+                <p>Suchverläufe bleiben lokal im Browser.</p>
+              </details>
+              <details className="guide-section__faq-item">
+                <summary>Kann ich Medien laden?</summary>
+                <p>Ja, wenn Inhalte öffentlich verfügbar sind.</p>
+              </details>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* How It Works */}
-      <HowItWorks />
+      {/* How To Section */}
+      <section className="howto-section">
+        <div className="container-lg px-3 px-sm-4">
+          <h2 className="howto-section__title">So nutzen Sie den Story Viewer</h2>
+          <div className="howto-section__steps">
+            <div className="howto-step">
+              <div className="howto-step__content">
+                <h3>Öffentliches Profil finden</h3>
+                <p>Suchen Sie ein öffentliches Profil (z. B. @Benutzername).</p>
+              </div>
+              <div className="howto-step__media">
+                <img src="/placeholder.svg" alt="Search illustration" />
+              </div>
+            </div>
+            <div className="howto-step">
+              <div className="howto-step__content">
+                <h3>Benutzernamen kopieren</h3>
+                <p>Kopieren Sie den Benutzernamen des gewünschten Profils.</p>
+              </div>
+              <div className="howto-step__media">
+                <img src="/placeholder.svg" alt="Copy illustration" />
+              </div>
+            </div>
+            <div className="howto-step">
+              <div className="howto-step__content">
+                <h3>In die Suche einfügen</h3>
+                <p>Fügen Sie den Namen ins Suchfeld ein und starten Sie die Suche.</p>
+              </div>
+              <div className="howto-step__media">
+                <img src="/placeholder.svg" alt="Paste illustration" />
+              </div>
+            </div>
+            <div className="howto-step">
+              <div className="howto-step__content">
+                <h3>Story oder Reels öffnen</h3>
+                <p>Öffnen Sie die Inhalte, die Sie ansehen möchten.</p>
+              </div>
+              <div className="howto-step__media">
+                <img src="/placeholder.svg" alt="Watch illustration" />
+              </div>
+            </div>
+            <div className="howto-step">
+              <div className="howto-step__content">
+                <h3>Download</h3>
+                <p>Wenn Ihnen etwas gefällt, speichern Sie es direkt.</p>
+              </div>
+              <div className="howto-step__media">
+                <img src="/placeholder.svg" alt="Download illustration" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
 
-      {/* FAQ */}
-      <FAQ />
-
-      {/* Trust Section */}
-      <section className="trust-section">
-        <div className="container-xl px-3 px-sm-4">
-          <div className="text-center mb-4">
-            <h2 className="trust-section__title">
-              Vertraut von Nutzern weltweit
-            </h2>
-            <p className="trust-section__subtitle">
-              Schnelle Ergebnisse, klare Privatsphäre und keine Anmeldung – jederzeit verfügbar.
-            </p>
+      {/* Experience Section */}
+      <section className="experience-section">
+        <div className="container-lg px-3 px-sm-4">
+          <h2 className="experience-section__title">Erleben Sie InstaViewer</h2>
+          <div className="experience-section__cards">
+            <div className="experience-card">
+              <div>
+                <h3>Privat bleiben, klar sehen</h3>
+                <p>
+                  Stories und Beiträge ansehen, ohne Spuren zu hinterlassen. Bleiben Sie fokussiert
+                  auf die Inhalte, die wirklich wichtig sind.
+                </p>
+              </div>
+              <img src="/placeholder.svg" alt="Privacy illustration" />
+            </div>
+            <div className="experience-card">
+              <div>
+                <h3>Dunkelmodus, der angenehm bleibt</h3>
+                <p>
+                  Eine klare Oberfläche für längere Sessions und entspannte Nutzung bei wenig Licht.
+                </p>
+              </div>
+              <img src="/placeholder.svg" alt="Dark mode illustration" />
+            </div>
           </div>
 
-          <div className="row g-4">
-            <div className="col-12 col-md-4">
-              <div className="trust-section__card">
-                <p className="trust-section__value trust-section__value--purple">1M+</p>
-                <p className="trust-section__label">Monatliche Nutzer</p>
+          <div className="experience-section__info">
+            <h3>Über InstaViewer</h3>
+            <p>
+              Entwickelt für einfache Navigation, schnelle Ergebnisse und eine fokussierte Nutzung.
+              Klare Abschnitte und kurze Wege helfen Ihnen, produktiv zu bleiben.
+            </p>
+            <div className="experience-section__badges">
+              <div className="info-card">
+                <h4>Rechtlicher Hinweis</h4>
+                <p>Öffentliche Inhalte verantwortungsvoll nutzen und Rechte respektieren.</p>
               </div>
-            </div>
-            <div className="col-12 col-md-4">
-              <div className="trust-section__card">
-                <p className="trust-section__value trust-section__value--pink">4.8/5</p>
-                <p className="trust-section__label">Durchschnittliche Bewertung</p>
-              </div>
-            </div>
-            <div className="col-12 col-md-4">
-              <div className="trust-section__card">
-                <p className="trust-section__value trust-section__value--orange">100%</p>
-                <p className="trust-section__label">Anonym & kostenlos</p>
+              <div className="info-card">
+                <h4>Privatsphäre</h4>
+                <p>Der Verlauf bleibt im Browser und kann jederzeit gelöscht werden.</p>
               </div>
             </div>
           </div>

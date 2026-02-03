@@ -11,6 +11,7 @@ interface ContentTabsProps {
   postsCount?: number;
   reelsCount?: number;
   highlightsCount?: number;
+  isLoading?: boolean;
 }
 
 const ContentTabs: React.FC<ContentTabsProps> = ({
@@ -20,6 +21,7 @@ const ContentTabs: React.FC<ContentTabsProps> = ({
   postsCount = 0,
   reelsCount = 0,
   highlightsCount = 0,
+  isLoading = false,
 }) => {
   const tabs = [
     { id: 'stories' as TabType, label: 'Stories', icon: PlayCircle, count: storiesCount },
@@ -52,6 +54,7 @@ const ContentTabs: React.FC<ContentTabsProps> = ({
           );
         })}
       </div>
+      {isLoading && <div className="content-tabs__loading" />}
     </div>
   );
 };
