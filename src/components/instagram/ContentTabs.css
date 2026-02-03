@@ -65,8 +65,8 @@
 }
 
 .content-tabs__loading-boxes span {
-  height: 6px;
-  border-radius: 9999px;
+  height: 200px;
+  border-radius: 16px;
   background: #e5e7eb;
   animation: content-tabs-pulse 1s ease-in-out infinite;
 }
